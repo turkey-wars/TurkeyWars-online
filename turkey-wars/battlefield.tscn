@@ -1,9 +1,3 @@
-[gd_scene format=3 uid="uid://c4d3gt5eeu3e"]
-
-[ext_resource type="Script" uid="uid://dwsbkl83qohfg" path="res://grass_spawner.gd" id="1_gr4ss"]
-
-[sub_resource type="Shader" id="Shader_grass"]
-code = "shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
 uniform vec3 albedo : source_color = vec3(0.2, 0.5, 0.1);
 uniform float sway_speed = 1.0;
@@ -16,14 +10,14 @@ void fragment() {
     ALBEDO = albedo;
     ROUGHNESS = 0.8;
 }"
+[gd_scene format=3 uid="uid://c4d3gt5eeu3e"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_grass"]
-render_priority = 0
-shader = SubResource("Shader_grass")
-shader_parameter/albedo = Color(0.23, 0.45, 0.15, 1)
-shader_parameter/sway_speed = 1.5
-shader_parameter/sway_strength = 0.8
-
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
+sky_top_color = Color(0.38, 0.45, 0.55, 1)
+sky_horizon_color = Color(0.75, 0.5, 0.35, 1)
+ground_bottom_color = Color(0.15, 0.15, 0.15, 1)
+ground_horizon_color = Color(0.75, 0.5, 0.35, 1)
+sun_angle_max = 30.0
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
 sky_top_color = Color(0.38, 0.45, 0.55, 1)
 sky_horizon_color = Color(0.75, 0.5, 0.35, 1)
@@ -66,10 +60,9 @@ transform = Transform3D(5, 0, 0, 0, 0.01, 0, 0, 0, 20, -30, -0.5, 0)
 
 [node name="Plane" type="CSGBox3D" parent="Environment/Terrain" unique_id=1048146852]
 transform = Transform3D(400, 0, 0, 0, 1, 0, 0, 0, 200, 0, -1, 0)
-material = SubResource("ShaderMaterial_grass")
+transform = Transform3D(120, 0, 0, 0, 1, 0, 0, 0, 50, 0, -1, 0)
 
 [node name="GrassSpawner" type="Node3D" parent="Environment/Terrain" unique_id=333788655]
-script = ExtResource("1_gr4ss")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=895435287]
 environment = SubResource("Environment_afternoon")
