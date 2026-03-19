@@ -1,15 +1,3 @@
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
-uniform vec3 albedo : source_color = vec3(0.2, 0.5, 0.1);
-uniform float sway_speed = 1.0;
-uniform float sway_strength = 0.5;
-void vertex() {
-    VERTEX.y += sin(VERTEX.x * 2.0 + TIME * sway_speed) * sway_strength * 0.1;
-    VERTEX.x += cos(VERTEX.z * 1.5 + TIME * sway_speed * 0.8) * sway_strength * 0.05;
-}
-void fragment() {
-    ALBEDO = albedo;
-    ROUGHNESS = 0.8;
-}"
 [gd_scene format=3 uid="uid://c4d3gt5eeu3e"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
@@ -18,11 +6,6 @@ sky_horizon_color = Color(0.75, 0.5, 0.35, 1)
 ground_bottom_color = Color(0.15, 0.15, 0.15, 1)
 ground_horizon_color = Color(0.75, 0.5, 0.35, 1)
 sun_angle_max = 30.0
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
-sky_top_color = Color(0.38, 0.45, 0.55, 1)
-sky_horizon_color = Color(0.75, 0.5, 0.35, 1)
-ground_bottom_color = Color(0.15, 0.15, 0.15, 1)
-ground_horizon_color = Color(0.75, 0.5, 0.35, 1)
 
 [sub_resource type="Sky" id="Sky_afternoon"]
 sky_material = SubResource("ProceduralSkyMaterial_sky")
@@ -35,12 +18,14 @@ glow_enabled = true
 volumetric_fog_density = 0.01
 volumetric_fog_albedo = Color(0.8, 0.6, 0.4, 1)
 
+
 [node name="BattlefieldScene" type="Node3D" unique_id=1332396635]
 
 [node name="Camera" type="Node3D" parent="." unique_id=48061094]
 
 [node name="Camera3D" type="Camera3D" parent="Camera" unique_id=1803550854]
 transform = Transform3D(-1, 2.2626683e-08, -8.444392e-08, 0, 0.9659259, 0.25881907, 8.742278e-08, 0.25881907, -0.9659258, 0, 24.882843, -33.929367)
+fov = 30.0
 
 [node name="AttackerBackline" type="CSGBox3D" parent="." unique_id=973995697]
 transform = Transform3D(5, 0, 0, 0, 0.01, 0, 0, 0, 20, 40, -0.5, 0)
@@ -59,10 +44,7 @@ transform = Transform3D(5, 0, 0, 0, 0.01, 0, 0, 0, 20, -30, -0.5, 0)
 [node name="Terrain" type="Node3D" parent="Environment" unique_id=1605605837]
 
 [node name="Plane" type="CSGBox3D" parent="Environment/Terrain" unique_id=1048146852]
-transform = Transform3D(400, 0, 0, 0, 1, 0, 0, 0, 200, 0, -1, 0)
 transform = Transform3D(120, 0, 0, 0, 1, 0, 0, 0, 50, 0, -1, 0)
-
-[node name="GrassSpawner" type="Node3D" parent="Environment/Terrain" unique_id=333788655]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=895435287]
 environment = SubResource("Environment_afternoon")
