@@ -16,7 +16,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GameState="*uid://btw4ngn3rmqqk"
+GameState="*res://game_state.gd"
 
 [physics]
 
