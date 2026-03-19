@@ -38,9 +38,19 @@ func _ready():
 
 	_setup_hud()
 	
+	# Sync troops from game state if available
+	if GameState.attack_data.province != "":
+		attacker_frontline_warriors = GameState.attack_data.attacker_army.get("warrior", 0)
+		attacker_backline_rangers = GameState.attack_data.attacker_army.get("ranger", 0)
+		attacker_backline_wizards = GameState.attack_data.attacker_army.get("wizard", 0)
+		
+		defender_frontline_warriors = GameState.attack_data.defender_army.get("warrior", 0)
+		defender_backline_rangers = GameState.attack_data.defender_army.get("ranger", 0)
+		defender_backline_wizards = GameState.attack_data.defender_army.get("wizard", 0)
+
 	# Wait a tiny bit just to let grass/scene load
 	await get_tree().create_timer(0.5).timeout
-	
+
 	# Spawn Attackers (Left Team)
 	for i in range(attacker_frontline_warriors):
 		spawn_unit(0, false, warrior_scene)
@@ -48,7 +58,7 @@ func _ready():
 		spawn_unit(0, true, ranger_scene)
 	for i in range(attacker_backline_wizards):
 		spawn_unit(0, true, wizard_scene)
-	
+
 	# Spawn Defenders (Right Team)
 	for i in range(defender_frontline_warriors):
 		spawn_unit(1, false, warrior_scene)
@@ -57,8 +67,7 @@ func _ready():
 	for i in range(defender_backline_wizards):
 		spawn_unit(1, true, wizard_scene)
 
-	_update_team_counters()
-
+	initial_spawn_done = true
 func _process(_delta: float):
 	_update_team_counters()
 
@@ -91,6 +100,7 @@ func _setup_hud():
 	defender_count_label.add_theme_color_override("font_color", Color(0.35, 0.55, 1.0))
 	root.add_child(defender_count_label)
 
+	var b_over = battle_ended
 func _update_team_counters():
 	if not attacker_count_label or not defender_count_label:
 		return
@@ -100,13 +110,37 @@ func _update_team_counters():
 	for u in get_tree().get_nodes_in_group("units"):
 		if not is_instance_valid(u):
 			continue
-		if u.team == 0:
+		if u.team == 0 and u.current_state != u.State.DEAD:
 			attacker_alive += 1
-		else:
+		elif u.team == 1 and u.current_state != u.State.DEAD:
 			defender_alive += 1
 
 	attacker_count_label.text = "Attackers: %d" % attacker_alive
 	defender_count_label.text = "Defenders: %d" % defender_alive
+	
+	if not battle_ended_flag:
+		# Need to make sure units actually spawned first
+		if initial_spawn_done:
+			if attacker_alive == 0 and defender_alive == 0:
+				call_deferred("_end_battle", false) # Draw counts as defend win for simplicity
+			elif attacker_alive == 0:
+				call_deferred("_end_battle", false)
+			elif defender_alive == 0:
+				call_deferred("_end_battle", true)
+
+var battle_ended_flag = false
+var initial_spawn_done = false
+
+func _end_battle(attacker_won: bool):
+	if battle_ended_flag: return
+	battle_ended_flag = true
+	
+	print("Battle Over. Attacker Won: ", attacker_won)
+	
+	# Small delay before changing scene
+	await get_tree().create_timer(3.0).timeout
+	
+	GameState.resolve_battle(attacker_won)
 
 func spawn_unit(team: int, is_backline: bool, scene_to_spawn: PackedScene):
 	var spawn_area: CSGBox3D = null
