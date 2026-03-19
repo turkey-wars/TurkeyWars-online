@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://c4d3gt5eeu3e"]
+
+[ext_resource type="Script" path="res://grass_spawner.gd" id="1_gr4ss"]
+
+[sub_resource type="Shader" id="Shader_grass"]
+code = "shader_type spatial;\nrender_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;\nuniform vec3 albedo : source_color = vec3(0.2, 0.5, 0.1);\nuniform float sway_speed = 1.0;\nuniform float sway_strength = 0.5;\nvoid vertex() {\n    VERTEX.y += sin(VERTEX.x * 2.0 + TIME * sway_speed) * sway_strength * 0.1;\n    VERTEX.x += cos(VERTEX.z * 1.5 + TIME * sway_speed * 0.8) * sway_strength * 0.05;\n}\nvoid fragment() {\n    ALBEDO = albedo;\n    ROUGHNESS = 0.8;\n}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_grass"]
+render_priority = 0
+shader = SubResource("Shader_grass")
+shader_parameter/albedo = Color(0.23, 0.45, 0.15, 1)
+shader_parameter/sway_speed = 1.5
+shader_parameter/sway_strength = 0.8
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
+sky_top_color = Color(0.38, 0.45, 0.55, 1)
+sky_horizon_color = Color(0.75, 0.5, 0.35, 1)
+ground_bottom_color = Color(0.15, 0.15, 0.15, 1)
+ground_horizon_color = Color(0.75, 0.5, 0.35, 1)
+sun_angle_max = 30.0
+
+[sub_resource type="Sky" id="Sky_afternoon"]
+sky_material = SubResource("ProceduralSkyMaterial_sky")
+
+[sub_resource type="Environment" id="Environment_afternoon"]
+background_mode = 2
+sky = SubResource("Sky_afternoon")
+tonemap_mode = 2
+glow_enabled = true
+volumetric_fog_density = 0.01
+volumetric_fog_albedo = Color(0.8, 0.6, 0.4, 1)
+
+
+[node name="BattlefieldScene" type="Node3D" unique_id=1332396635]
+
+[node name="Camera" type="Node3D" parent="." unique_id=48061094]
+
+[node name="Camera3D" type="Camera3D" parent="Camera" unique_id=1803550854]
+transform = Transform3D(-1, -7.5710346e-08, 4.3711385e-08, 0, 0.49999997, 0.86602545, -8.742278e-08, 0.86602545, -0.49999997, 0, 91.472984, -41.899414)
+fov = 30.0
+
+[node name="AttackerBackline" type="CSGBox3D" parent="." unique_id=973995697]
+transform = Transform3D(5, 0, 0, 0, 0.01, 0, 0, 0, 20, 40, -0.5, 0)
+
+[node name="AttackerFrontline" type="CSGBox3D" parent="." unique_id=1737615774]
+transform = Transform3D(5, 0, 0, 0, 0.01, 0, 0, 0, 20, 30, -0.5, 0)
+
+[node name="DefenderBackine" type="CSGBox3D" parent="." unique_id=1018535686]
+transform = Transform3D(5, 0, 0, 0, 0.01, 0, 0, 0, 20, -40, -0.5, 0)
+
+[node name="DefenderFrontline" type="CSGBox3D" parent="." unique_id=789353048]
+transform = Transform3D(5, 0, 0, 0, 0.01, 0, 0, 0, 20, -30, -0.5, 0)
+
+[node name="Environment" type="Node3D" parent="." unique_id=144296881]
+
+[node name="Terrain" type="Node3D" parent="Environment" unique_id=1605605837]
+
+[node name="Plane" type="CSGBox3D" parent="Environment/Terrain" unique_id=1048146852]
+material = SubResource("ShaderMaterial_grass")
+
+transform = Transform3D(120, 0, 0, 0, 1, 0, 0, 0, 50, 0, -1, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_afternoon")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(-0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, 0.433013, -0.75, 0, 10, 0)
+light_color = Color(1, 0.9, 0.7, 1)
+light_energy = 1.2
+shadow_enabled = true
+
+[node name="GrassSpawner" type="Node3D" parent="Environment/Terrain"]
+script = ExtResource("1_gr4ss")
