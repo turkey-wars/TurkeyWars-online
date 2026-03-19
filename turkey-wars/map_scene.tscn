@@ -1740,3 +1740,40 @@ antialiased = true
 
 [node name="Col0" type="CollisionPolygon2D" parent="Rize"]
 polygon = PackedVector2Array(779.80, 100.70, 780.50, 98.20, 787.10, 91.40, 788.20, 88.80, 790.80, 87.10, 792.10, 84.20, 788.80, 81.70, 785.90, 78.00, 783.20, 69.90, 779.50, 70.90, 775.80, 74.30, 770.10, 76.90, 765.60, 76.40, 762.20, 78.90, 758.80, 83.10, 756.00, 83.70, 751.40, 86.60, 748.30, 85.70, 743.00, 89.30, 745.90, 97.40, 746.40, 101.80, 749.40, 109.40, 748.80, 113.70, 749.50, 117.60, 757.20, 113.80, 763.90, 112.20, 765.30, 108.60, 771.10, 107.20)
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="TooltipPanel" type="PanelContainer" parent="UILayer"]
+visible = false
+offset_right = 160.0
+offset_bottom = 80.0
+mouse_filter = 2
+
+[node name="VBox" type="VBoxContainer" parent="UILayer/TooltipPanel"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="NameLabel" type="Label" parent="UILayer/TooltipPanel/VBox"]
+layout_mode = 2
+text = "Province Name"
+
+[node name="StrengthLabel" type="Label" parent="UILayer/TooltipPanel/VBox"]
+layout_mode = 2
+text = "Strength: 0"
+
+[node name="ArmyLabel" type="Label" parent="UILayer/TooltipPanel/VBox"]
+layout_mode = 2
+text = "Army Size: 0"
+
+[node name="TopLeftUI" type="MarginContainer" parent="UILayer"]
+offset_right = 200.0
+offset_bottom = 60.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+
+[node name="PlayerArmyLabel" type="Label" parent="UILayer/TopLeftUI"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Player Army: 35000"

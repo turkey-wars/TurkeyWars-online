@@ -98,6 +98,52 @@ def main():
             out_lines.append(f'polygon = {packed}')
             out_lines.append('')
 
+    out_lines.append('[node name="UILayer" type="CanvasLayer" parent="."]')
+    out_lines.append('layer = 100')
+    out_lines.append('')
+    
+    out_lines.append('[node name="TooltipPanel" type="PanelContainer" parent="UILayer"]')
+    out_lines.append('visible = false')
+    out_lines.append('offset_right = 160.0')
+    out_lines.append('offset_bottom = 80.0')
+    out_lines.append('mouse_filter = 2')
+    out_lines.append('')
+    
+    out_lines.append('[node name="VBox" type="VBoxContainer" parent="UILayer/TooltipPanel"]')
+    out_lines.append('layout_mode = 2')
+    out_lines.append('mouse_filter = 2')
+    out_lines.append('')
+    
+    out_lines.append('[node name="NameLabel" type="Label" parent="UILayer/TooltipPanel/VBox"]')
+    out_lines.append('layout_mode = 2')
+    out_lines.append('text = "Province Name"')
+    out_lines.append('')
+
+    out_lines.append('[node name="StrengthLabel" type="Label" parent="UILayer/TooltipPanel/VBox"]')
+    out_lines.append('layout_mode = 2')
+    out_lines.append('text = "Strength: 0"')
+    out_lines.append('')
+
+    out_lines.append('[node name="ArmyLabel" type="Label" parent="UILayer/TooltipPanel/VBox"]')
+    out_lines.append('layout_mode = 2')
+    out_lines.append('text = "Army Size: 0"')
+    out_lines.append('')
+    
+    # Global player army size
+    out_lines.append('[node name="TopLeftUI" type="MarginContainer" parent="UILayer"]')
+    out_lines.append('offset_right = 200.0')
+    out_lines.append('offset_bottom = 60.0')
+    out_lines.append('theme_override_constants/margin_left = 20')
+    out_lines.append('theme_override_constants/margin_top = 20')
+    out_lines.append('')
+    
+    out_lines.append('[node name="PlayerArmyLabel" type="Label" parent="UILayer/TopLeftUI"]')
+    out_lines.append('layout_mode = 2')
+    out_lines.append('theme_override_colors/font_color = Color(0, 0, 0, 1)')
+    out_lines.append('theme_override_font_sizes/font_size = 24')
+    out_lines.append('text = "Player Army: 35000"')
+    out_lines.append('')
+
     tscn_path = Path('../map_scene.tscn')
     tscn_path.write_text("\n".join(out_lines), encoding='utf-8')
     print("Godot scene written to map_scene.tscn")

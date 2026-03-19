@@ -1,0 +1,122 @@
+Province,Neighboring Provinces
+Adana,"Hatay, Osmaniye, Kahramanmaraş, Kayseri, Niğde, Mersin"
+Adıyaman,"Şanlıurfa, Diyarbakır, Malatya, Kahramanmaraş, Gaziantep"
+Afyonkarahisar,"Isparta, Konya, Eskişehir, Kütahya, Uşak, Denizli, Burdur"
+Ağrı,"Van, Iğdır, Kars, Erzurum, Muş, Bitlis"
+Aksaray,"Niğde, Nevşehir, Kırşehir, Ankara, Konya"
+Amasya,"Yozgat, Tokat, Samsun, Çorum"
+Ankara,"Konya, Aksaray, Kırşehir, Kırıkkale, Çankırı, Bolu, Eskişehir, Afyonkarahisar"
+Antalya,"Mersin, Karaman, Konya, Isparta, Burdur, Muğla"
+Ardahan,"Kars, Erzurum, Artvin"
+Artvin,"Rize, Erzurum, Ardahan"
+Aydın,"Muğla, Denizli, Manisa, İzmir"
+Balıkesir,"İzmir, Manisa, Kütahya, Bursa, Çanakkale"
+Bartın,"Kastamonu, Zonguldak, Karabük"
+Batman,"Mardin, Siirt, Bitlis, Muş, Diyarbakır"
+Bayburt,"Erzincan, Erzurum, Rize, Trabzon, Gümüşhane"
+Bilecik,"Kütahya, Eskişehir, Bolu, Sakarya, Bursa"
+Bingöl,"Diyarbakır, Muş, Erzurum, Erzincan, Tunceli, Elazığ"
+Bitlis,"Siirt, Van, Ağrı, Muş, Batman"
+Bolu,"Eskişehir, Ankara, Çankırı, Karabük, Zonguldak, Düzce, Sakarya, Bilecik"
+Burdur,"Muğla, Antalya, Isparta, Afyonkarahisar, Denizli"
+Bursa,"Balıkesir, Kütahya, Bilecik, Sakarya, Kocaeli, Yalova"
+Çanakkale,"Balıkesir, Tekirdağ, Edirne"
+Çankırı,"Ankara, Kırıkkale, Çorum, Kastamonu, Karabük, Bolu"
+Çorum,"Yozgat, Amasya, Samsun, Sinop, Kastamonu, Çankırı, Kırıkkale"
+Denizli,"Muğla, Burdur, Afyonkarahisar, Uşak, Manisa, Aydın"
+Diyarbakır,"Şanlıurfa, Mardin, Batman, Muş, Bingöl, Elazığ, Malatya, Adıyaman"
+Düzce,"Zonguldak, Bolu, Sakarya"
+Edirne,"Çanakkale, Tekirdağ, Kırklareli"
+Elazığ,"Diyarbakır, Bingöl, Tunceli, Erzincan, Malatya"
+Erzincan,"Elazığ, Tunceli, Bingöl, Erzurum, Bayburt, Gümüşhane, Giresun, Sivas, Malatya"
+Erzurum,"Bingöl, Muş, Ağrı, Kars, Ardahan, Artvin, Rize, Trabzon, Bayburt, Erzincan"
+Eskişehir,"Afyonkarahisar, Konya, Ankara, Bolu, Bilecik, Kütahya"
+Gaziantep,"Kilis, Şanlıurfa, Adıyaman, Kahramanmaraş, Osmaniye, Hatay"
+Giresun,"Gümüşhane, Trabzon, Erzincan, Sivas, Ordu"
+Gümüşhane,"Erzincan, Bayburt, Trabzon, Giresun"
+Hakkari,"Van, Şırnak"
+Hatay,"Kilis, Gaziantep, Osmaniye, Adana"
+Iğdır,"Ağrı, Kars"
+Isparta,"Antalya, Konya, Afyonkarahisar, Burdur"
+İstanbul,"Kocaeli, Tekirdağ, Kırklareli"
+İzmir,"Aydın, Manisa, Balıkesir"
+Kahramanmaraş,"Gaziantep, Adıyaman, Malatya, Sivas, Kayseri, Adana, Osmaniye"
+Karabük,"Zonguldak, Bartın, Kastamonu, Çankırı, Bolu"
+Karaman,"Mersin, Konya, Antalya"
+Kars,"Ağrı, Iğdır, Ardahan, Erzurum"
+Kastamonu,"Çorum, Sinop, Bartın, Karabük, Çankırı"
+Kayseri,"Adana, Kahramanmaraş, Sivas, Yozgat, Nevşehir, Niğde"
+Kırıkkale,"Kırşehir, Yozgat, Çorum, Çankırı, Ankara"
+Kırklareli,"Edirne, Tekirdağ, İstanbul"
+Kırşehir,"Nevşehir, Yozgat, Kırıkkale, Ankara, Aksaray"
+Kilis,"Gaziantep, Hatay"
+Kocaeli,"Yalova, İstanbul, Bursa, Bilecik, Sakarya"
+Konya,"Antalya, Karaman, Mersin, Niğde, Aksaray, Ankara, Eskişehir, Afyonkarahisar, Isparta"
+Kütahya,"Manisa, Uşak, Afyonkarahisar, Eskişehir, Bilecik, Bursa, Balıkesir"
+Malatya,"Kahramanmaraş, Adıyaman, Diyarbakır, Elazığ, Erzincan, Sivas"
+Manisa,"İzmir, Aydın, Denizli, Uşak, Kütahya, Balıkesir"
+Mardin,"Şanlıurfa, Diyarbakır, Batman, Siirt, Şırnak"
+Mersin,"Adana, Niğde, Konya, Karaman, Antalya"
+Muğla,"Antalya, Burdur, Denizli, Aydın"
+Muş,"Diyarbakır, Batman, Bitlis, Ağrı, Erzurum, Bingöl"
+Nevşehir,"Niğde, Kayseri, Yozgat, Kırşehir, Aksaray"
+Niğde,"Nevşehir, Kayseri, Adana, Mersin, Konya, Aksaray"
+Ordu,"Samsun, Tokat, Sivas, Giresun"
+Osmaniye,"Gaziantep, Kahramanmaraş, Adana, Hatay"
+Rize,"Artvin, Erzurum, Bayburt, Trabzon"
+Sakarya,"Düzce, Bolu, Bilecik, Bursa, Kocaeli"
+Samsun,"Ordu, Tokat, Amasya, Çorum, Sinop"
+Siirt,"Van, Bitlis, Batman, Mardin, Şırnak"
+Sinop,"Samsun, Çorum, Kastamonu"
+Sivas,"Kayseri, Kahramanmaraş, Malatya, Erzincan, Giresun, Ordu, Tokat, Yozgat"
+Şanlıurfa,"Gaziantep, Adıyaman, Diyarbakır, Mardin"
+Şırnak,"Mardin, Siirt, Van, Hakkari"
+Tekirdağ,"İstanbul, Kırklareli, Edirne, Çanakkale"
+Tokat,"Sivas, Ordu, Samsun, Amasya, Yozgat"
+Trabzon,"Rize, Bayburt, Gümüşhane, Giresun"
+Tunceli,"Elazığ, Bingöl, Erzincan"
+Uşak,"Manisa, Denizli, Afyonkarahisar, Kütahya"
+Van,"Hakkari, Şırnak, Siirt, Bitlis, Ağrı"
+Yalova,"Kocaeli, Bursa"
+Yozgat,"Kayseri, Sivas, Tokat, Amasya, Çorum, Kırıkkale, Kırşehir, Nevşehir"
+Zonguldak,"Düzce, Bolu, Karabük, Bartın"
+
+1. Two Areas: West and East
+This split draws a line roughly down the middle of Turkey, dividing the country into two balanced halves.
+
+West (40 Provinces): Afyonkarahisar, Aksaray, Ankara, Antalya, Aydın, Balıkesir, Bartın, Bilecik, Bolu, Burdur, Bursa, Çanakkale, Çankırı, Denizli, Düzce, Edirne, Eskişehir, Isparta, İstanbul, İzmir, Karabük, Karaman, Kastamonu, Kırıkkale, Kırklareli, Kırşehir, Kocaeli, Konya, Kütahya, Manisa, Mersin, Muğla, Nevşehir, Niğde, Sakarya, Sinop, Tekirdağ, Uşak, Yalova, Zonguldak.
+
+East (41 Provinces): Adana, Adıyaman, Ağrı, Amasya, Ardahan, Artvin, Batman, Bayburt, Bingöl, Bitlis, Çorum, Diyarbakır, Elazığ, Erzincan, Erzurum, Gaziantep, Giresun, Gümüşhane, Hakkari, Hatay, Iğdır, Kahramanmaraş, Kars, Kayseri, Kilis, Malatya, Mardin, Muş, Ordu, Osmaniye, Rize, Samsun, Siirt, Sivas, Şanlıurfa, Şırnak, Tokat, Trabzon, Tunceli, Van, Yozgat.
+
+2. Three Areas: Far West, Middle, Far East
+This arrangement slices the country vertically into three sections.
+
+Far West (25 Provinces): Afyonkarahisar, Antalya, Aydın, Balıkesir, Bilecik, Bolu, Burdur, Bursa, Çanakkale, Denizli, Düzce, Edirne, Isparta, İstanbul, İzmir, Kırklareli, Kocaeli, Kütahya, Manisa, Muğla, Sakarya, Tekirdağ, Uşak, Yalova, Zonguldak.
+
+Middle (28 Provinces): Adana, Aksaray, Amasya, Ankara, Bartın, Çankırı, Çorum, Eskişehir, Giresun, Hatay, Kahramanmaraş, Karabük, Karaman, Kastamonu, Kayseri, Kırıkkale, Kırşehir, Konya, Mersin, Nevşehir, Niğde, Ordu, Osmaniye, Samsun, Sinop, Sivas, Tokat, Yozgat.
+
+Far East (28 Provinces): Adıyaman, Ağrı, Ardahan, Artvin, Batman, Bayburt, Bingöl, Bitlis, Diyarbakır, Elazığ, Erzincan, Erzurum, Gaziantep, Gümüşhane, Hakkari, Iğdır, Kars, Kilis, Malatya, Mardin, Muş, Rize, Siirt, Şanlıurfa, Şırnak, Trabzon, Tunceli, Van.
+
+3. Four Areas: Northwest, Northeast, Southwest, Southeast
+This divides Turkey into four distinct quadrants.
+
+Northwest (26 Provinces): Amasya, Ankara, Balıkesir, Bartın, Bilecik, Bolu, Bursa, Çanakkale, Çankırı, Çorum, Düzce, Edirne, Eskişehir, İstanbul, Karabük, Kastamonu, Kırıkkale, Kırklareli, Kocaeli, Sakarya, Samsun, Sinop, Tekirdağ, Yalova, Yozgat, Zonguldak.
+
+Northeast (18 Provinces): Ağrı, Ardahan, Artvin, Bayburt, Bingöl, Erzincan, Erzurum, Giresun, Gümüşhane, Iğdır, Kars, Kayseri, Ordu, Rize, Sivas, Tokat, Trabzon, Tunceli.
+
+Southwest (18 Provinces): Afyonkarahisar, Aksaray, Antalya, Aydın, Burdur, Denizli, Isparta, İzmir, Karaman, Kırşehir, Konya, Kütahya, Manisa, Mersin, Muğla, Nevşehir, Niğde, Uşak.
+
+Southeast (19 Provinces): Adana, Adıyaman, Batman, Bitlis, Diyarbakır, Elazığ, Gaziantep, Hakkari, Hatay, Kahramanmaraş, Kilis, Malatya, Mardin, Muş, Osmaniye, Siirt, Şanlıurfa, Şırnak, Van.
+
+4. Five Areas: Northwest, Northeast, Middle, Southwest, Southeast
+This pulls the central provinces out of the four quadrants to create a distinct core "Middle" region (aligning closely with the official Central Anatolia region).
+
+Northwest (21 Provinces): Amasya, Balıkesir, Bartın, Bilecik, Bolu, Bursa, Çanakkale, Çorum, Düzce, Edirne, İstanbul, Karabük, Kastamonu, Kırklareli, Kocaeli, Sakarya, Samsun, Sinop, Tekirdağ, Yalova, Zonguldak.
+
+Northeast (16 Provinces): Ağrı, Ardahan, Artvin, Bayburt, Bingöl, Erzincan, Erzurum, Giresun, Gümüşhane, Iğdır, Kars, Ordu, Rize, Tokat, Trabzon, Tunceli.
+
+Middle (13 Provinces): Aksaray, Ankara, Çankırı, Eskişehir, Karaman, Kayseri, Kırıkkale, Kırşehir, Konya, Nevşehir, Niğde, Sivas, Yozgat.
+
+Southwest (12 Provinces): Afyonkarahisar, Antalya, Aydın, Burdur, Denizli, Isparta, İzmir, Kütahya, Manisa, Mersin, Muğla, Uşak.
+
+Southeast (19 Provinces): Adana, Adıyaman, Batman, Bitlis, Diyarbakır, Elazığ, Gaziantep, Hakkari, Hatay, Kahramanmaraş, Kilis, Malatya, Mardin, Muş, Osmaniye, Siirt, Şanlıurfa, Şırnak, Van.

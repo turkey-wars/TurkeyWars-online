@@ -1,0 +1,1539 @@
+{
+  "Adana": {
+    "id": "Adana",
+    "display_name": "Adana",
+    "adjacencies": [
+      "Hatay",
+      "Osmaniye",
+      "Kahramanmaras",
+      "Kayseri",
+      "Nigde",
+      "Mersin"
+    ],
+    "strength": 4,
+    "initial_army": 42000,
+    "regions": {
+      "2": "East",
+      "3": "Middle",
+      "4": "Southeast",
+      "5": "Southeast"
+    }
+  },
+  "Adiyaman": {
+    "id": "Adiyaman",
+    "display_name": "Adıyaman",
+    "adjacencies": [
+      "Sanliurfa",
+      "Diyarbakir",
+      "Malatya",
+      "Kahramanmaras",
+      "Gaziantep"
+    ],
+    "strength": 2,
+    "initial_army": 22000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Southeast",
+      "5": "Southeast"
+    }
+  },
+  "Afyonkarahisar": {
+    "id": "Afyonkarahisar",
+    "display_name": "Afyonkarahisar",
+    "adjacencies": [
+      "Isparta",
+      "Konya",
+      "Eskisehir",
+      "Kutahya",
+      "Usak",
+      "Denizli",
+      "Burdur"
+    ],
+    "strength": 3,
+    "initial_army": 28000,
+    "regions": {
+      "2": "West",
+      "3": "Far West",
+      "4": "Southwest",
+      "5": "Southwest"
+    }
+  },
+  "Agri": {
+    "id": "Agri",
+    "display_name": "Ağrı",
+    "adjacencies": [
+      "Van",
+      "Igdir",
+      "Kars",
+      "Erzurum",
+      "Mus",
+      "Bitlis"
+    ],
+    "strength": 2,
+    "initial_army": 21000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Northeast",
+      "5": "Northeast"
+    }
+  },
+  "Aksaray": {
+    "id": "Aksaray",
+    "display_name": "Aksaray",
+    "adjacencies": [
+      "Nigde",
+      "Nevsehir",
+      "Kirsehir",
+      "Ankara",
+      "Konya"
+    ],
+    "strength": 2,
+    "initial_army": 20000,
+    "regions": {
+      "2": "West",
+      "3": "Middle",
+      "4": "Southwest",
+      "5": "Middle"
+    }
+  },
+  "Amasya": {
+    "id": "Amasya",
+    "display_name": "Amasya",
+    "adjacencies": [
+      "Yozgat",
+      "Tokat",
+      "Samsun",
+      "Corum"
+    ],
+    "strength": 2,
+    "initial_army": 19000,
+    "regions": {
+      "2": "East",
+      "3": "Middle",
+      "4": "Northwest",
+      "5": "Northwest"
+    }
+  },
+  "Ankara": {
+    "id": "Ankara",
+    "display_name": "Ankara",
+    "adjacencies": [
+      "Konya",
+      "Aksaray",
+      "Kirsehir",
+      "Kirikkale",
+      "Cankiri",
+      "Bolu",
+      "Eskisehir",
+      "Afyonkarahisar"
+    ],
+    "strength": 5,
+    "initial_army": 48000,
+    "regions": {
+      "2": "West",
+      "3": "Middle",
+      "4": "Northwest",
+      "5": "Middle"
+    }
+  },
+  "Antalya": {
+    "id": "Antalya",
+    "display_name": "Antalya",
+    "adjacencies": [
+      "Mersin",
+      "Karaman",
+      "Konya",
+      "Isparta",
+      "Burdur",
+      "Mugla"
+    ],
+    "strength": 5,
+    "initial_army": 46000,
+    "regions": {
+      "2": "West",
+      "3": "Far West",
+      "4": "Southwest",
+      "5": "Southwest"
+    }
+  },
+  "Ardahan": {
+    "id": "Ardahan",
+    "display_name": "Ardahan",
+    "adjacencies": [
+      "Kars",
+      "Erzurum",
+      "Artvin"
+    ],
+    "strength": 1,
+    "initial_army": 11000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Northeast",
+      "5": "Northeast"
+    }
+  },
+  "Artvin": {
+    "id": "Artvin",
+    "display_name": "Artvin",
+    "adjacencies": [
+      "Rize",
+      "Erzurum",
+      "Ardahan"
+    ],
+    "strength": 2,
+    "initial_army": 17000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Northeast",
+      "5": "Northeast"
+    }
+  },
+  "Aydin": {
+    "id": "Aydin",
+    "display_name": "Aydın",
+    "adjacencies": [
+      "Mugla",
+      "Denizli",
+      "Manisa",
+      "Izmir"
+    ],
+    "strength": 3,
+    "initial_army": 33000,
+    "regions": {
+      "2": "West",
+      "3": "Far West",
+      "4": "Southwest",
+      "5": "Southwest"
+    }
+  },
+  "Balikesir": {
+    "id": "Balikesir",
+    "display_name": "Balıkesir",
+    "adjacencies": [
+      "Izmir",
+      "Manisa",
+      "Kutahya",
+      "Bursa",
+      "Canakkale"
+    ],
+    "strength": 4,
+    "initial_army": 38000,
+    "regions": {
+      "2": "West",
+      "3": "Far West",
+      "4": "Northwest",
+      "5": "Northwest"
+    }
+  },
+  "Bartin": {
+    "id": "Bartin",
+    "display_name": "Bartın",
+    "adjacencies": [
+      "Kastamonu",
+      "Zonguldak",
+      "Karabuk"
+    ],
+    "strength": 2,
+    "initial_army": 18000,
+    "regions": {
+      "2": "West",
+      "3": "Middle",
+      "4": "Northwest",
+      "5": "Northwest"
+    }
+  },
+  "Batman": {
+    "id": "Batman",
+    "display_name": "Batman",
+    "adjacencies": [
+      "Mardin",
+      "Siirt",
+      "Bitlis",
+      "Mus",
+      "Diyarbakir"
+    ],
+    "strength": 2,
+    "initial_army": 23000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Southeast",
+      "5": "Southeast"
+    }
+  },
+  "Bayburt": {
+    "id": "Bayburt",
+    "display_name": "Bayburt",
+    "adjacencies": [
+      "Erzincan",
+      "Erzurum",
+      "Rize",
+      "Trabzon",
+      "Gumushane"
+    ],
+    "strength": 1,
+    "initial_army": 10000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Northeast",
+      "5": "Northeast"
+    }
+  },
+  "Bilecik": {
+    "id": "Bilecik",
+    "display_name": "Bilecik",
+    "adjacencies": [
+      "Kutahya",
+      "Eskisehir",
+      "Bolu",
+      "Sakarya",
+      "Bursa"
+    ],
+    "strength": 2,
+    "initial_army": 18000,
+    "regions": {
+      "2": "West",
+      "3": "Far West",
+      "4": "Northwest",
+      "5": "Northwest"
+    }
+  },
+  "Bingol": {
+    "id": "Bingol",
+    "display_name": "Bingöl",
+    "adjacencies": [
+      "Diyarbakir",
+      "Mus",
+      "Erzurum",
+      "Erzincan",
+      "Tunceli",
+      "Elazig"
+    ],
+    "strength": 2,
+    "initial_army": 19000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Northeast",
+      "5": "Northeast"
+    }
+  },
+  "Bitlis": {
+    "id": "Bitlis",
+    "display_name": "Bitlis",
+    "adjacencies": [
+      "Siirt",
+      "Van",
+      "Agri",
+      "Mus",
+      "Batman"
+    ],
+    "strength": 2,
+    "initial_army": 20000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Southeast",
+      "5": "Southeast"
+    }
+  },
+  "Bolu": {
+    "id": "Bolu",
+    "display_name": "Bolu",
+    "adjacencies": [
+      "Eskisehir",
+      "Ankara",
+      "Cankiri",
+      "Karabuk",
+      "Zonguldak",
+      "Duzce",
+      "Sakarya",
+      "Bilecik"
+    ],
+    "strength": 2,
+    "initial_army": 21000,
+    "regions": {
+      "2": "West",
+      "3": "Far West",
+      "4": "Northwest",
+      "5": "Northwest"
+    }
+  },
+  "Burdur": {
+    "id": "Burdur",
+    "display_name": "Burdur",
+    "adjacencies": [
+      "Mugla",
+      "Antalya",
+      "Isparta",
+      "Afyonkarahisar",
+      "Denizli"
+    ],
+    "strength": 2,
+    "initial_army": 19000,
+    "regions": {
+      "2": "West",
+      "3": "Far West",
+      "4": "Southwest",
+      "5": "Southwest"
+    }
+  },
+  "Bursa": {
+    "id": "Bursa",
+    "display_name": "Bursa",
+    "adjacencies": [
+      "Balikesir",
+      "Kutahya",
+      "Bilecik",
+      "Sakarya",
+      "Kocaeli",
+      "Yalova"
+    ],
+    "strength": 5,
+    "initial_army": 47000,
+    "regions": {
+      "2": "West",
+      "3": "Far West",
+      "4": "Northwest",
+      "5": "Northwest"
+    }
+  },
+  "Canakkale": {
+    "id": "Canakkale",
+    "display_name": "Çanakkale",
+    "adjacencies": [
+      "Balikesir",
+      "Tekirdag",
+      "Edirne"
+    ],
+    "strength": 3,
+    "initial_army": 29000,
+    "regions": {
+      "2": "West",
+      "3": "Far West",
+      "4": "Northwest",
+      "5": "Northwest"
+    }
+  },
+  "Cankiri": {
+    "id": "Cankiri",
+    "display_name": "Çankırı",
+    "adjacencies": [
+      "Ankara",
+      "Kirikkale",
+      "Corum",
+      "Kastamonu",
+      "Karabuk",
+      "Bolu"
+    ],
+    "strength": 2,
+    "initial_army": 17000,
+    "regions": {
+      "2": "West",
+      "3": "Middle",
+      "4": "Northwest",
+      "5": "Middle"
+    }
+  },
+  "Corum": {
+    "id": "Corum",
+    "display_name": "Çorum",
+    "adjacencies": [
+      "Yozgat",
+      "Amasya",
+      "Samsun",
+      "Sinop",
+      "Kastamonu",
+      "Cankiri",
+      "Kirikkale"
+    ],
+    "strength": 3,
+    "initial_army": 26000,
+    "regions": {
+      "2": "East",
+      "3": "Middle",
+      "4": "Northwest",
+      "5": "Northwest"
+    }
+  },
+  "Denizli": {
+    "id": "Denizli",
+    "display_name": "Denizli",
+    "adjacencies": [
+      "Mugla",
+      "Burdur",
+      "Afyonkarahisar",
+      "Usak",
+      "Manisa",
+      "Aydin"
+    ],
+    "strength": 4,
+    "initial_army": 37000,
+    "regions": {
+      "2": "West",
+      "3": "Far West",
+      "4": "Southwest",
+      "5": "Southwest"
+    }
+  },
+  "Diyarbakir": {
+    "id": "Diyarbakir",
+    "display_name": "Diyarbakır",
+    "adjacencies": [
+      "Sanliurfa",
+      "Mardin",
+      "Batman",
+      "Mus",
+      "Bingol",
+      "Elazig",
+      "Malatya",
+      "Adiyaman"
+    ],
+    "strength": 3,
+    "initial_army": 34000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Southeast",
+      "5": "Southeast"
+    }
+  },
+  "Duzce": {
+    "id": "Duzce",
+    "display_name": "Düzce",
+    "adjacencies": [
+      "Zonguldak",
+      "Bolu",
+      "Sakarya"
+    ],
+    "strength": 3,
+    "initial_army": 27000,
+    "regions": {
+      "2": "West",
+      "3": "Far West",
+      "4": "Northwest",
+      "5": "Northwest"
+    }
+  },
+  "Edirne": {
+    "id": "Edirne",
+    "display_name": "Edirne",
+    "adjacencies": [
+      "Canakkale",
+      "Tekirdag",
+      "Kirklareli"
+    ],
+    "strength": 3,
+    "initial_army": 28000,
+    "regions": {
+      "2": "West",
+      "3": "Far West",
+      "4": "Northwest",
+      "5": "Northwest"
+    }
+  },
+  "Elazig": {
+    "id": "Elazig",
+    "display_name": "Elazığ",
+    "adjacencies": [
+      "Diyarbakir",
+      "Bingol",
+      "Tunceli",
+      "Erzincan",
+      "Malatya"
+    ],
+    "strength": 3,
+    "initial_army": 29000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Southeast",
+      "5": "Southeast"
+    }
+  },
+  "Erzincan": {
+    "id": "Erzincan",
+    "display_name": "Erzincan",
+    "adjacencies": [
+      "Elazig",
+      "Tunceli",
+      "Bingol",
+      "Erzurum",
+      "Bayburt",
+      "Gumushane",
+      "Giresun",
+      "Sivas",
+      "Malatya"
+    ],
+    "strength": 2,
+    "initial_army": 18000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Northeast",
+      "5": "Northeast"
+    }
+  },
+  "Erzurum": {
+    "id": "Erzurum",
+    "display_name": "Erzurum",
+    "adjacencies": [
+      "Bingol",
+      "Mus",
+      "Agri",
+      "Kars",
+      "Ardahan",
+      "Artvin",
+      "Rize",
+      "Trabzon",
+      "Bayburt",
+      "Erzincan"
+    ],
+    "strength": 3,
+    "initial_army": 31000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Northeast",
+      "5": "Northeast"
+    }
+  },
+  "Eskisehir": {
+    "id": "Eskisehir",
+    "display_name": "Eskişehir",
+    "adjacencies": [
+      "Afyonkarahisar",
+      "Konya",
+      "Ankara",
+      "Bolu",
+      "Bilecik",
+      "Kutahya"
+    ],
+    "strength": 4,
+    "initial_army": 39000,
+    "regions": {
+      "2": "West",
+      "3": "Middle",
+      "4": "Northwest",
+      "5": "Middle"
+    }
+  },
+  "Gaziantep": {
+    "id": "Gaziantep",
+    "display_name": "Gaziantep",
+    "adjacencies": [
+      "Kilis",
+      "Sanliurfa",
+      "Adiyaman",
+      "Kahramanmaras",
+      "Osmaniye",
+      "Hatay"
+    ],
+    "strength": 4,
+    "initial_army": 43000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Southeast",
+      "5": "Southeast"
+    }
+  },
+  "Giresun": {
+    "id": "Giresun",
+    "display_name": "Giresun",
+    "adjacencies": [
+      "Gumushane",
+      "Trabzon",
+      "Erzincan",
+      "Sivas",
+      "Ordu"
+    ],
+    "strength": 3,
+    "initial_army": 26000,
+    "regions": {
+      "2": "East",
+      "3": "Middle",
+      "4": "Northeast",
+      "5": "Northeast"
+    }
+  },
+  "Gumushane": {
+    "id": "Gumushane",
+    "display_name": "Gümüşhane",
+    "adjacencies": [
+      "Erzincan",
+      "Bayburt",
+      "Trabzon",
+      "Giresun"
+    ],
+    "strength": 1,
+    "initial_army": 12000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Northeast",
+      "5": "Northeast"
+    }
+  },
+  "Hakkari": {
+    "id": "Hakkari",
+    "display_name": "Hakkari",
+    "adjacencies": [
+      "Van",
+      "Sirnak"
+    ],
+    "strength": 2,
+    "initial_army": 19000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Southeast",
+      "5": "Southeast"
+    }
+  },
+  "Hatay": {
+    "id": "Hatay",
+    "display_name": "Hatay",
+    "adjacencies": [
+      "Kilis",
+      "Gaziantep",
+      "Osmaniye",
+      "Adana"
+    ],
+    "strength": 4,
+    "initial_army": 40000,
+    "regions": {
+      "2": "East",
+      "3": "Middle",
+      "4": "Southeast",
+      "5": "Southeast"
+    }
+  },
+  "Igdir": {
+    "id": "Igdir",
+    "display_name": "Iğdır",
+    "adjacencies": [
+      "Agri",
+      "Kars"
+    ],
+    "strength": 1,
+    "initial_army": 13000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Northeast",
+      "5": "Northeast"
+    }
+  },
+  "Isparta": {
+    "id": "Isparta",
+    "display_name": "Isparta",
+    "adjacencies": [
+      "Antalya",
+      "Konya",
+      "Afyonkarahisar",
+      "Burdur"
+    ],
+    "strength": 3,
+    "initial_army": 27000,
+    "regions": {
+      "2": "West",
+      "3": "Far West",
+      "4": "Southwest",
+      "5": "Southwest"
+    }
+  },
+  "Istanbul": {
+    "id": "Istanbul",
+    "display_name": "İstanbul",
+    "adjacencies": [
+      "Kocaeli",
+      "Tekirdag",
+      "Kirklareli"
+    ],
+    "strength": 5,
+    "initial_army": 50000,
+    "regions": {
+      "2": "West",
+      "3": "Far West",
+      "4": "Northwest",
+      "5": "Northwest"
+    }
+  },
+  "Izmir": {
+    "id": "Izmir",
+    "display_name": "İzmir",
+    "adjacencies": [
+      "Aydin",
+      "Manisa",
+      "Balikesir"
+    ],
+    "strength": 5,
+    "initial_army": 49000,
+    "regions": {
+      "2": "West",
+      "3": "Far West",
+      "4": "Southwest",
+      "5": "Southwest"
+    }
+  },
+  "Kahramanmaras": {
+    "id": "Kahramanmaras",
+    "display_name": "Kahramanmaraş",
+    "adjacencies": [
+      "Gaziantep",
+      "Adiyaman",
+      "Malatya",
+      "Sivas",
+      "Kayseri",
+      "Adana",
+      "Osmaniye"
+    ],
+    "strength": 3,
+    "initial_army": 33000,
+    "regions": {
+      "2": "East",
+      "3": "Middle",
+      "4": "Southeast",
+      "5": "Southeast"
+    }
+  },
+  "Karabuk": {
+    "id": "Karabuk",
+    "display_name": "Karabük",
+    "adjacencies": [
+      "Zonguldak",
+      "Bartin",
+      "Kastamonu",
+      "Cankiri",
+      "Bolu"
+    ],
+    "strength": 2,
+    "initial_army": 20000,
+    "regions": {
+      "2": "West",
+      "3": "Middle",
+      "4": "Northwest",
+      "5": "Northwest"
+    }
+  },
+  "Karaman": {
+    "id": "Karaman",
+    "display_name": "Karaman",
+    "adjacencies": [
+      "Mersin",
+      "Konya",
+      "Antalya"
+    ],
+    "strength": 2,
+    "initial_army": 18000,
+    "regions": {
+      "2": "West",
+      "3": "Middle",
+      "4": "Southwest",
+      "5": "Middle"
+    }
+  },
+  "Kars": {
+    "id": "Kars",
+    "display_name": "Kars",
+    "adjacencies": [
+      "Agri",
+      "Igdir",
+      "Ardahan",
+      "Erzurum"
+    ],
+    "strength": 2,
+    "initial_army": 19000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Northeast",
+      "5": "Northeast"
+    }
+  },
+  "Kastamonu": {
+    "id": "Kastamonu",
+    "display_name": "Kastamonu",
+    "adjacencies": [
+      "Corum",
+      "Sinop",
+      "Bartin",
+      "Karabuk",
+      "Cankiri"
+    ],
+    "strength": 3,
+    "initial_army": 25000,
+    "regions": {
+      "2": "West",
+      "3": "Middle",
+      "4": "Northwest",
+      "5": "Northwest"
+    }
+  },
+  "Kayseri": {
+    "id": "Kayseri",
+    "display_name": "Kayseri",
+    "adjacencies": [
+      "Adana",
+      "Kahramanmaras",
+      "Sivas",
+      "Yozgat",
+      "Nevsehir",
+      "Nigde"
+    ],
+    "strength": 4,
+    "initial_army": 41000,
+    "regions": {
+      "2": "East",
+      "3": "Middle",
+      "4": "Northeast",
+      "5": "Middle"
+    }
+  },
+  "Kirikkale": {
+    "id": "Kirikkale",
+    "display_name": "Kırıkkale",
+    "adjacencies": [
+      "Kirsehir",
+      "Yozgat",
+      "Corum",
+      "Cankiri",
+      "Ankara"
+    ],
+    "strength": 2,
+    "initial_army": 21000,
+    "regions": {
+      "2": "West",
+      "3": "Middle",
+      "4": "Northwest",
+      "5": "Middle"
+    }
+  },
+  "Kirklareli": {
+    "id": "Kirklareli",
+    "display_name": "Kırklareli",
+    "adjacencies": [
+      "Edirne",
+      "Tekirdag",
+      "Istanbul"
+    ],
+    "strength": 2,
+    "initial_army": 22000,
+    "regions": {
+      "2": "West",
+      "3": "Far West",
+      "4": "Northwest",
+      "5": "Northwest"
+    }
+  },
+  "Kirsehir": {
+    "id": "Kirsehir",
+    "display_name": "Kırşehir",
+    "adjacencies": [
+      "Nevsehir",
+      "Yozgat",
+      "Kirikkale",
+      "Ankara",
+      "Aksaray"
+    ],
+    "strength": 2,
+    "initial_army": 18000,
+    "regions": {
+      "2": "West",
+      "3": "Middle",
+      "4": "Southwest",
+      "5": "Middle"
+    }
+  },
+  "Kilis": {
+    "id": "Kilis",
+    "display_name": "Kilis",
+    "adjacencies": [
+      "Gaziantep",
+      "Hatay"
+    ],
+    "strength": 1,
+    "initial_army": 12000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Southeast",
+      "5": "Southeast"
+    }
+  },
+  "Kocaeli": {
+    "id": "Kocaeli",
+    "display_name": "Kocaeli",
+    "adjacencies": [
+      "Yalova",
+      "Istanbul",
+      "Bursa",
+      "Bilecik",
+      "Sakarya"
+    ],
+    "strength": 5,
+    "initial_army": 45000,
+    "regions": {
+      "2": "West",
+      "3": "Far West",
+      "4": "Northwest",
+      "5": "Northwest"
+    }
+  },
+  "Konya": {
+    "id": "Konya",
+    "display_name": "Konya",
+    "adjacencies": [
+      "Antalya",
+      "Karaman",
+      "Mersin",
+      "Nigde",
+      "Aksaray",
+      "Ankara",
+      "Eskisehir",
+      "Afyonkarahisar",
+      "Isparta"
+    ],
+    "strength": 4,
+    "initial_army": 44000,
+    "regions": {
+      "2": "West",
+      "3": "Middle",
+      "4": "Southwest",
+      "5": "Middle"
+    }
+  },
+  "Kutahya": {
+    "id": "Kutahya",
+    "display_name": "Kütahya",
+    "adjacencies": [
+      "Manisa",
+      "Usak",
+      "Afyonkarahisar",
+      "Eskisehir",
+      "Bilecik",
+      "Bursa",
+      "Balikesir"
+    ],
+    "strength": 3,
+    "initial_army": 28000,
+    "regions": {
+      "2": "West",
+      "3": "Far West",
+      "4": "Southwest",
+      "5": "Southwest"
+    }
+  },
+  "Malatya": {
+    "id": "Malatya",
+    "display_name": "Malatya",
+    "adjacencies": [
+      "Kahramanmaras",
+      "Adiyaman",
+      "Diyarbakir",
+      "Elazig",
+      "Erzincan",
+      "Sivas"
+    ],
+    "strength": 3,
+    "initial_army": 32000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Southeast",
+      "5": "Southeast"
+    }
+  },
+  "Manisa": {
+    "id": "Manisa",
+    "display_name": "Manisa",
+    "adjacencies": [
+      "Izmir",
+      "Aydin",
+      "Denizli",
+      "Usak",
+      "Kutahya",
+      "Balikesir"
+    ],
+    "strength": 4,
+    "initial_army": 38000,
+    "regions": {
+      "2": "West",
+      "3": "Far West",
+      "4": "Southwest",
+      "5": "Southwest"
+    }
+  },
+  "Mardin": {
+    "id": "Mardin",
+    "display_name": "Mardin",
+    "adjacencies": [
+      "Sanliurfa",
+      "Diyarbakir",
+      "Batman",
+      "Siirt",
+      "Sirnak"
+    ],
+    "strength": 3,
+    "initial_army": 31000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Southeast",
+      "5": "Southeast"
+    }
+  },
+  "Mersin": {
+    "id": "Mersin",
+    "display_name": "Mersin",
+    "adjacencies": [
+      "Adana",
+      "Nigde",
+      "Konya",
+      "Karaman",
+      "Antalya"
+    ],
+    "strength": 4,
+    "initial_army": 41000,
+    "regions": {
+      "2": "West",
+      "3": "Middle",
+      "4": "Southwest",
+      "5": "Southwest"
+    }
+  },
+  "Mugla": {
+    "id": "Mugla",
+    "display_name": "Muğla",
+    "adjacencies": [
+      "Antalya",
+      "Burdur",
+      "Denizli",
+      "Aydin"
+    ],
+    "strength": 3,
+    "initial_army": 34000,
+    "regions": {
+      "2": "West",
+      "3": "Far West",
+      "4": "Southwest",
+      "5": "Southwest"
+    }
+  },
+  "Mus": {
+    "id": "Mus",
+    "display_name": "Muş",
+    "adjacencies": [
+      "Diyarbakir",
+      "Batman",
+      "Bitlis",
+      "Agri",
+      "Erzurum",
+      "Bingol"
+    ],
+    "strength": 2,
+    "initial_army": 21000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Southeast",
+      "5": "Southeast"
+    }
+  },
+  "Nevsehir": {
+    "id": "Nevsehir",
+    "display_name": "Nevşehir",
+    "adjacencies": [
+      "Nigde",
+      "Kayseri",
+      "Yozgat",
+      "Kirsehir",
+      "Aksaray"
+    ],
+    "strength": 2,
+    "initial_army": 20000,
+    "regions": {
+      "2": "West",
+      "3": "Middle",
+      "4": "Southwest",
+      "5": "Middle"
+    }
+  },
+  "Nigde": {
+    "id": "Nigde",
+    "display_name": "Niğde",
+    "adjacencies": [
+      "Nevsehir",
+      "Kayseri",
+      "Adana",
+      "Mersin",
+      "Konya",
+      "Aksaray"
+    ],
+    "strength": 2,
+    "initial_army": 21000,
+    "regions": {
+      "2": "West",
+      "3": "Middle",
+      "4": "Southwest",
+      "5": "Middle"
+    }
+  },
+  "Ordu": {
+    "id": "Ordu",
+    "display_name": "Ordu",
+    "adjacencies": [
+      "Samsun",
+      "Tokat",
+      "Sivas",
+      "Giresun"
+    ],
+    "strength": 3,
+    "initial_army": 30000,
+    "regions": {
+      "2": "East",
+      "3": "Middle",
+      "4": "Northeast",
+      "5": "Northeast"
+    }
+  },
+  "Osmaniye": {
+    "id": "Osmaniye",
+    "display_name": "Osmaniye",
+    "adjacencies": [
+      "Gaziantep",
+      "Kahramanmaras",
+      "Adana",
+      "Hatay"
+    ],
+    "strength": 3,
+    "initial_army": 29000,
+    "regions": {
+      "2": "East",
+      "3": "Middle",
+      "4": "Southeast",
+      "5": "Southeast"
+    }
+  },
+  "Rize": {
+    "id": "Rize",
+    "display_name": "Rize",
+    "adjacencies": [
+      "Artvin",
+      "Erzurum",
+      "Bayburt",
+      "Trabzon"
+    ],
+    "strength": 2,
+    "initial_army": 22000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Northeast",
+      "5": "Northeast"
+    }
+  },
+  "Sakarya": {
+    "id": "Sakarya",
+    "display_name": "Sakarya",
+    "adjacencies": [
+      "Duzce",
+      "Bolu",
+      "Bilecik",
+      "Bursa",
+      "Kocaeli"
+    ],
+    "strength": 4,
+    "initial_army": 36000,
+    "regions": {
+      "2": "West",
+      "3": "Far West",
+      "4": "Northwest",
+      "5": "Northwest"
+    }
+  },
+  "Samsun": {
+    "id": "Samsun",
+    "display_name": "Samsun",
+    "adjacencies": [
+      "Ordu",
+      "Tokat",
+      "Amasya",
+      "Corum",
+      "Sinop"
+    ],
+    "strength": 4,
+    "initial_army": 39000,
+    "regions": {
+      "2": "East",
+      "3": "Middle",
+      "4": "Northwest",
+      "5": "Northwest"
+    }
+  },
+  "Siirt": {
+    "id": "Siirt",
+    "display_name": "Siirt",
+    "adjacencies": [
+      "Van",
+      "Bitlis",
+      "Batman",
+      "Mardin",
+      "Sirnak"
+    ],
+    "strength": 2,
+    "initial_army": 20000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Southeast",
+      "5": "Southeast"
+    }
+  },
+  "Sinop": {
+    "id": "Sinop",
+    "display_name": "Sinop",
+    "adjacencies": [
+      "Samsun",
+      "Corum",
+      "Kastamonu"
+    ],
+    "strength": 2,
+    "initial_army": 17000,
+    "regions": {
+      "2": "West",
+      "3": "Middle",
+      "4": "Northwest",
+      "5": "Northwest"
+    }
+  },
+  "Sivas": {
+    "id": "Sivas",
+    "display_name": "Sivas",
+    "adjacencies": [
+      "Kayseri",
+      "Kahramanmaras",
+      "Malatya",
+      "Erzincan",
+      "Giresun",
+      "Ordu",
+      "Tokat",
+      "Yozgat"
+    ],
+    "strength": 3,
+    "initial_army": 31000,
+    "regions": {
+      "2": "East",
+      "3": "Middle",
+      "4": "Northeast",
+      "5": "Middle"
+    }
+  },
+  "Sanliurfa": {
+    "id": "Sanliurfa",
+    "display_name": "Şanlıurfa",
+    "adjacencies": [
+      "Gaziantep",
+      "Adiyaman",
+      "Diyarbakir",
+      "Mardin"
+    ],
+    "strength": 3,
+    "initial_army": 34000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Southeast",
+      "5": "Southeast"
+    }
+  },
+  "Sirnak": {
+    "id": "Sirnak",
+    "display_name": "Şırnak",
+    "adjacencies": [
+      "Mardin",
+      "Siirt",
+      "Van",
+      "Hakkari"
+    ],
+    "strength": 2,
+    "initial_army": 23000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Southeast",
+      "5": "Southeast"
+    }
+  },
+  "Tekirdag": {
+    "id": "Tekirdag",
+    "display_name": "Tekirdağ",
+    "adjacencies": [
+      "Istanbul",
+      "Kirklareli",
+      "Edirne",
+      "Canakkale"
+    ],
+    "strength": 4,
+    "initial_army": 37000,
+    "regions": {
+      "2": "West",
+      "3": "Far West",
+      "4": "Northwest",
+      "5": "Northwest"
+    }
+  },
+  "Tokat": {
+    "id": "Tokat",
+    "display_name": "Tokat",
+    "adjacencies": [
+      "Sivas",
+      "Ordu",
+      "Samsun",
+      "Amasya",
+      "Yozgat"
+    ],
+    "strength": 3,
+    "initial_army": 29000,
+    "regions": {
+      "2": "East",
+      "3": "Middle",
+      "4": "Northeast",
+      "5": "Northeast"
+    }
+  },
+  "Trabzon": {
+    "id": "Trabzon",
+    "display_name": "Trabzon",
+    "adjacencies": [
+      "Rize",
+      "Bayburt",
+      "Gumushane",
+      "Giresun"
+    ],
+    "strength": 3,
+    "initial_army": 32000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Northeast",
+      "5": "Northeast"
+    }
+  },
+  "Tunceli": {
+    "id": "Tunceli",
+    "display_name": "Tunceli",
+    "adjacencies": [
+      "Elazig",
+      "Bingol",
+      "Erzincan"
+    ],
+    "strength": 1,
+    "initial_army": 10000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Northeast",
+      "5": "Northeast"
+    }
+  },
+  "Usak": {
+    "id": "Usak",
+    "display_name": "Uşak",
+    "adjacencies": [
+      "Manisa",
+      "Denizli",
+      "Afyonkarahisar",
+      "Kutahya"
+    ],
+    "strength": 3,
+    "initial_army": 27000,
+    "regions": {
+      "2": "West",
+      "3": "Far West",
+      "4": "Southwest",
+      "5": "Southwest"
+    }
+  },
+  "Van": {
+    "id": "Van",
+    "display_name": "Van",
+    "adjacencies": [
+      "Hakkari",
+      "Sirnak",
+      "Siirt",
+      "Bitlis",
+      "Agri"
+    ],
+    "strength": 3,
+    "initial_army": 33000,
+    "regions": {
+      "2": "East",
+      "3": "Far East",
+      "4": "Southeast",
+      "5": "Southeast"
+    }
+  },
+  "Yalova": {
+    "id": "Yalova",
+    "display_name": "Yalova",
+    "adjacencies": [
+      "Kocaeli",
+      "Bursa"
+    ],
+    "strength": 2,
+    "initial_army": 24000,
+    "regions": {
+      "2": "West",
+      "3": "Far West",
+      "4": "Northwest",
+      "5": "Northwest"
+    }
+  },
+  "Yozgat": {
+    "id": "Yozgat",
+    "display_name": "Yozgat",
+    "adjacencies": [
+      "Kayseri",
+      "Sivas",
+      "Tokat",
+      "Amasya",
+      "Corum",
+      "Kirikkale",
+      "Kirsehir",
+      "Nevsehir"
+    ],
+    "strength": 3,
+    "initial_army": 26000,
+    "regions": {
+      "2": "East",
+      "3": "Middle",
+      "4": "Northwest",
+      "5": "Middle"
+    }
+  },
+  "Zonguldak": {
+    "id": "Zonguldak",
+    "display_name": "Zonguldak",
+    "adjacencies": [
+      "Duzce",
+      "Bolu",
+      "Karabuk",
+      "Bartin"
+    ],
+    "strength": 3,
+    "initial_army": 28000,
+    "regions": {
+      "2": "West",
+      "3": "Far West",
+      "4": "Northwest",
+      "5": "Northwest"
+    }
+  }
+}

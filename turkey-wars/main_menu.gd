@@ -55,7 +55,10 @@ func _on_new_session_pressed() -> void:
 
 
 func _on_load_session_pressed() -> void:
-	_show_page(load_session_page)
+	if FileAccess.file_exists(LOCAL_SESSION_SAVE_PATH):
+		get_tree().change_scene_to_file("res://map_scene.tscn")
+	else:
+		push_error("No save file found!")
 
 
 func _on_settings_pressed() -> void:
@@ -123,6 +126,7 @@ func _on_create_world_pressed() -> void:
 
 	save_file.store_string(JSON.stringify(session_data, "\t"))
 	save_file.close()
+	get_tree().change_scene_to_file("res://map_scene.tscn")
 
 
 func _on_remove_player_pressed(player_row: HBoxContainer) -> void:
@@ -155,3 +159,4 @@ func _on_load_session_back_pressed() -> void:
 
 func _on_settings_back_pressed() -> void:
 	_show_page(main_menu_page)
+

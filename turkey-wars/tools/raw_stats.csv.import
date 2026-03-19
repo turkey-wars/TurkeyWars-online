@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://6u8wbkumuvul"
+
+[deps]
+
+files=["res://tools/raw_stats.Difficulty.translation", "res://tools/raw_stats.Army.translation"]
+
+source_file="res://tools/raw_stats.csv"
+dest_files=["res://tools/raw_stats.Difficulty.translation", "res://tools/raw_stats.Army.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true
