@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://ddk4mxhw2v8x"]
+[gd_scene format=3 uid="uid://ddk4mxhw2v8x"]
 [ext_resource type="PackedScene" path="res://game_unit_2d.tscn" id="1_scene"]
 
 [node name="Soldier" instance=ExtResource("1_scene")]
@@ -6,5 +6,5 @@ unit_class = "melee"
 hp = 600.0
 attack_damage = 200.0
 attack_speed = 1.2
-attack_range = 1.75
-movement_speed = 5.0
+attack_range = 5.25
+movement_speed = 15.0
