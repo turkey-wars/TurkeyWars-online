@@ -55,8 +55,9 @@ func _create_spring_afternoon_environment() -> void:
 	var world_env := WorldEnvironment.new()
 	world_env.name = "WorldEnvironment"
 	world_env.environment = env
-	
-print("Godot 4.6: 4:30 PM Spring Clear Sky loaded successfully.")
+
+	add_child(world_env)
+	print("Godot 4.6: 4:30 PM Spring Clear Sky loaded successfully.")
 	
 	# After environment setup, spawn 2D units
 	_spawn_armies()
