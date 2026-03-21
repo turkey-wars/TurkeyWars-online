@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://cj2euhgdtu3oa"]
+
+[ext_resource type="Script" uid="uid://cs3egvdwxacqv" path="res://zez.gd" id="2_rjb10"]
+[ext_resource type="Texture2D" uid="uid://efjhh8wtglat" path="res://assets/Untitled.jpg" id="2_x0u60"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_81isc"]
+transparency = 1
+albedo_color = Color(0.5194127, 0.5194127, 0.5194127, 1)
+albedo_texture = ExtResource("2_x0u60")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rjb10"]
+albedo_color = Color(0.13755062, 0.13755065, 0.13755062, 1)
+
+[node name="NewBattlefieldScene" type="Node3D" unique_id=1393429945]
+
+[node name="Node3D" type="Node3D" parent="." unique_id=537488616]
+script = ExtResource("2_rjb10")
+
+[node name="Background" type="CSGBox3D" parent="." unique_id=779990563]
+transform = Transform3D(-256, 6.9938224e-06, -7.571035e-11, 0, 138.56406, 0.0005, 2.238023e-05, 80, -0.00086602545, 0, 0, 0)
+material = SubResource("StandardMaterial3D_81isc")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=305038118]
+transform = Transform3D(-1, -4.371139e-08, 7.5710346e-08, 0, 0.8660254, 0.5, -8.742278e-08, 0.5, -0.8660254, 0, 45.26, -79.485)
+
+[node name="Platform" type="CSGBox3D" parent="." unique_id=489606765]
+transform = Transform3D(256, 0, 0, 0, 1, 0, 0, 0, 92, 0, -5.7149353, -46)
+visible = false
+use_collision = true
+material = SubResource("StandardMaterial3D_rjb10")
+
+[node name="AttackerFrontline" type="CSGBox3D" parent="." unique_id=1152608095]
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 40, 60, -4.7, -36.385)
+visible = false
+
+[node name="AttackerBackline" type="CSGBox3D" parent="." unique_id=2025914699]
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 40, 65, -4.7, -36.385)
+visible = false
+
+[node name="DefenderFrontline" type="CSGBox3D" parent="." unique_id=822753526]
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 40, -60, -4.7, -36.385)
+visible = false
+
+[node name="DefenderBackline" type="CSGBox3D" parent="." unique_id=395475455]
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 40, -65, -4.7, -36.385)
+visible = false

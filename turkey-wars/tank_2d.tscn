@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://flw6oyjx4yab"]
+[ext_resource type="PackedScene" path="res://game_unit_2d.tscn" id="1_scene"]
+
+[node name="Tank" instance=ExtResource("1_scene")]
+unit_class = "tank"
+hp = 1200.0
+attack_damage = 150.0
+attack_speed = 0.45
+attack_range = 3.0
+movement_speed = 3.5
+is_ranged = false
+is_backline = false

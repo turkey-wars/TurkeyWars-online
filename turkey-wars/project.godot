@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="TurkeyWars"
+run/main_scene="uid://2dmlbf4o5gjr"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameState="*res://game_state.gd"
 
 [physics]
 

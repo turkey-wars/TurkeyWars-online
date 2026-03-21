@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://2dmlbf4o5gjr"]
 
-[ext_resource type="Script" path="res://main_menu.gd" id="1"]
+[ext_resource type="Script" uid="uid://b38wbkkwsrpm2" path="res://main_menu.gd" id="1"]
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" unique_id=1964500053]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,16 +11,16 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1159840026]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+color = Color(0.04, 0.05, 0.075, 1)
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1637524141]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,133 +28,162 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MainMenuPage" type="VBoxContainer" parent="CenterContainer"]
+[node name="MainMenuCard" type="PanelContainer" parent="CenterContainer" unique_id=1640010001]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+custom_minimum_size = Vector2(620, 0)
+
+[node name="CardContent" type="VBoxContainer" parent="CenterContainer/MainMenuCard" unique_id=1640010002]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="MainMenuPage" type="VBoxContainer" parent="CenterContainer/MainMenuCard/CardContent" unique_id=253844653]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="TitleLabel" type="Label" parent="CenterContainer/MainMenuPage"]
+[node name="TitleLabel" type="Label" parent="CenterContainer/MainMenuCard/CardContent/MainMenuPage" unique_id=1517781718]
 layout_mode = 2
 text = "Main Menu"
 horizontal_alignment = 1
 
-[node name="NewSessionButton" type="Button" parent="CenterContainer/MainMenuPage"]
+[node name="NewSessionButton" type="Button" parent="CenterContainer/MainMenuCard/CardContent/MainMenuPage" unique_id=1948089180]
 layout_mode = 2
 text = "New Session"
 
-[node name="LoadSessionButton" type="Button" parent="CenterContainer/MainMenuPage"]
+[node name="LoadSessionButton" type="Button" parent="CenterContainer/MainMenuCard/CardContent/MainMenuPage" unique_id=217457544]
 layout_mode = 2
 text = "Load Session"
 
-[node name="SettingsButton" type="Button" parent="CenterContainer/MainMenuPage"]
+[node name="SettingsButton" type="Button" parent="CenterContainer/MainMenuCard/CardContent/MainMenuPage" unique_id=188078282]
 layout_mode = 2
 text = "Settings"
 
-[node name="NewSessionPage" type="VBoxContainer" parent="CenterContainer"]
+[node name="NewSessionPage" type="VBoxContainer" parent="CenterContainer/MainMenuCard/CardContent" unique_id=877070863]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="TitleLabel" type="Label" parent="CenterContainer/NewSessionPage"]
+[node name="TitleLabel" type="Label" parent="CenterContainer/MainMenuCard/CardContent/NewSessionPage" unique_id=885832772]
 layout_mode = 2
 text = "New Session"
 horizontal_alignment = 1
 
-[node name="NewLocalSessionButton" type="Button" parent="CenterContainer/NewSessionPage"]
+[node name="NewLocalSessionButton" type="Button" parent="CenterContainer/MainMenuCard/CardContent/NewSessionPage" unique_id=136487635]
 layout_mode = 2
 text = "New Local Session"
 
-[node name="NewOnlineSessionButton" type="Button" parent="CenterContainer/NewSessionPage"]
+[node name="NewOnlineSessionButton" type="Button" parent="CenterContainer/MainMenuCard/CardContent/NewSessionPage" unique_id=1245012901]
 layout_mode = 2
 text = "New Online Session"
 
-[node name="BackButton" type="Button" parent="CenterContainer/NewSessionPage"]
+[node name="BackButton" type="Button" parent="CenterContainer/MainMenuCard/CardContent/NewSessionPage" unique_id=1759306254]
 layout_mode = 2
 text = "Back"
 
-[node name="NewLocalSessionPage" type="VBoxContainer" parent="CenterContainer"]
+[node name="NewLocalSessionPage" type="VBoxContainer" parent="CenterContainer/MainMenuCard/CardContent" unique_id=910369205]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="TitleLabel" type="Label" parent="CenterContainer/NewLocalSessionPage"]
+[node name="TitleLabel" type="Label" parent="CenterContainer/MainMenuCard/CardContent/NewLocalSessionPage" unique_id=816906851]
 layout_mode = 2
 text = "New Local Session"
 horizontal_alignment = 1
 
-[node name="WorldNameLabel" type="Label" parent="CenterContainer/NewLocalSessionPage"]
+[node name="WorldNameLabel" type="Label" parent="CenterContainer/MainMenuCard/CardContent/NewLocalSessionPage" unique_id=783563996]
 layout_mode = 2
 text = "World Name:"
 
-[node name="WorldNameInput" type="LineEdit" parent="CenterContainer/NewLocalSessionPage"]
+[node name="WorldNameInput" type="LineEdit" parent="CenterContainer/MainMenuCard/CardContent/NewLocalSessionPage" unique_id=410971444]
 layout_mode = 2
 placeholder_text = "Enter world name"
 
-[node name="PlayersLabel" type="Label" parent="CenterContainer/NewLocalSessionPage"]
+[node name="PlayersLabel" type="Label" parent="CenterContainer/MainMenuCard/CardContent/NewLocalSessionPage" unique_id=381429188]
 layout_mode = 2
 text = "Players:"
 
-[node name="PlayersContainer" type="VBoxContainer" parent="CenterContainer/NewLocalSessionPage"]
+[node name="PlayersContainer" type="VBoxContainer" parent="CenterContainer/MainMenuCard/CardContent/NewLocalSessionPage" unique_id=1981658918]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Player1Input" type="LineEdit" parent="CenterContainer/NewLocalSessionPage/PlayersContainer"]
+[node name="PlayerRow1" type="HBoxContainer" parent="CenterContainer/MainMenuCard/CardContent/NewLocalSessionPage/PlayersContainer" unique_id=462504877]
 layout_mode = 2
+
+[node name="PlayerInput" type="LineEdit" parent="CenterContainer/MainMenuCard/CardContent/NewLocalSessionPage/PlayersContainer/PlayerRow1" unique_id=1925100001]
+layout_mode = 2
+name = "PlayerInput"
 text = "Player1"
 
-[node name="Player2Input" type="LineEdit" parent="CenterContainer/NewLocalSessionPage/PlayersContainer"]
+[node name="RemoveButton" type="Button" parent="CenterContainer/MainMenuCard/CardContent/NewLocalSessionPage/PlayersContainer/PlayerRow1" unique_id=1925100002]
 layout_mode = 2
+text = "Remove"
+
+[node name="PlayerRow2" type="HBoxContainer" parent="CenterContainer/MainMenuCard/CardContent/NewLocalSessionPage/PlayersContainer" unique_id=1191209781]
+layout_mode = 2
+
+[node name="PlayerInput" type="LineEdit" parent="CenterContainer/MainMenuCard/CardContent/NewLocalSessionPage/PlayersContainer/PlayerRow2" unique_id=1925100003]
+layout_mode = 2
+name = "PlayerInput"
 text = "Player2"
 
-[node name="AddPlayerButton" type="Button" parent="CenterContainer/NewLocalSessionPage"]
+[node name="RemoveButton" type="Button" parent="CenterContainer/MainMenuCard/CardContent/NewLocalSessionPage/PlayersContainer/PlayerRow2" unique_id=1925100004]
+layout_mode = 2
+text = "Remove"
+
+[node name="AddPlayerButton" type="Button" parent="CenterContainer/MainMenuCard/CardContent/NewLocalSessionPage" unique_id=1123185652]
 layout_mode = 2
 text = "Add Player"
 
-[node name="CreateWorldButton" type="Button" parent="CenterContainer/NewLocalSessionPage"]
+[node name="CreateWorldButton" type="Button" parent="CenterContainer/MainMenuCard/CardContent/NewLocalSessionPage" unique_id=762589513]
 layout_mode = 2
 text = "Create World"
 
-[node name="BackButton" type="Button" parent="CenterContainer/NewLocalSessionPage"]
+[node name="BackButton" type="Button" parent="CenterContainer/MainMenuCard/CardContent/NewLocalSessionPage" unique_id=1943683393]
 layout_mode = 2
 text = "Back"
 
-[node name="NewOnlineSessionPage" type="VBoxContainer" parent="CenterContainer"]
+[node name="NewOnlineSessionPage" type="VBoxContainer" parent="CenterContainer/MainMenuCard/CardContent" unique_id=1195271693]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="TitleLabel" type="Label" parent="CenterContainer/NewOnlineSessionPage"]
+[node name="TitleLabel" type="Label" parent="CenterContainer/MainMenuCard/CardContent/NewOnlineSessionPage" unique_id=592038297]
 layout_mode = 2
 text = "New Online Session"
 horizontal_alignment = 1
 
-[node name="BackButton" type="Button" parent="CenterContainer/NewOnlineSessionPage"]
+[node name="BackButton" type="Button" parent="CenterContainer/MainMenuCard/CardContent/NewOnlineSessionPage" unique_id=2141332536]
 layout_mode = 2
 text = "Back"
 
-[node name="LoadSessionPage" type="VBoxContainer" parent="CenterContainer"]
+[node name="LoadSessionPage" type="VBoxContainer" parent="CenterContainer/MainMenuCard/CardContent" unique_id=1943495647]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="TitleLabel" type="Label" parent="CenterContainer/LoadSessionPage"]
+[node name="TitleLabel" type="Label" parent="CenterContainer/MainMenuCard/CardContent/LoadSessionPage" unique_id=1359206439]
 layout_mode = 2
 text = "Load Session"
 horizontal_alignment = 1
 
-[node name="BackButton" type="Button" parent="CenterContainer/LoadSessionPage"]
+[node name="BackButton" type="Button" parent="CenterContainer/MainMenuCard/CardContent/LoadSessionPage" unique_id=1333754259]
 layout_mode = 2
 text = "Back"
 
-[node name="SettingsPage" type="VBoxContainer" parent="CenterContainer"]
+[node name="SettingsPage" type="VBoxContainer" parent="CenterContainer/MainMenuCard/CardContent" unique_id=913345433]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="TitleLabel" type="Label" parent="CenterContainer/SettingsPage"]
+[node name="TitleLabel" type="Label" parent="CenterContainer/MainMenuCard/CardContent/SettingsPage" unique_id=1521902260]
 layout_mode = 2
 text = "Settings"
 horizontal_alignment = 1
 
-[node name="BackButton" type="Button" parent="CenterContainer/SettingsPage"]
+[node name="BackButton" type="Button" parent="CenterContainer/MainMenuCard/CardContent/SettingsPage" unique_id=1620953946]
 layout_mode = 2
 text = "Back"
