@@ -1,85 +1,76 @@
-# HANDOVER — TurkeyWars (snapshot)
+# HANDOVER — TurkeyWars
 
-Date: 2026-03-19
-Branch: final_technicalities (HEAD: ed0770c)
+**Date:** 2026-03-22
+**Status:** Active Development (2D-in-3D Pivot)
 
-**Purpose**: concise handover for a developer/LLM to pick up the next major step of the project.
+## Project Overview
+TurkeyWars is a grand strategy game where players compete to conquer the provinces of Turkey. The game alternates between a **Strategy Map** (2D) and a **Tactical Battlefield** (3D with 2D billboard sprites).
 
-**Project Summary**
-- Engine: Godot 4.x, GDScript (single shared `unit.gd` drives unit logic).
-- Scope: small RTS-like skirmish scene (battlefield) with melee and ranged units, projectiles, and a simple spawn manager.
-- Current polish: visual effects (grass, outlines, mist) were intentionally removed; focus is on gameplay and deterministic spawning.
-
-**Key Files (what to read first)**
-- [turkey-wars/battle_manager.gd](turkey-wars/battle_manager.gd): battle orchestration, spawn areas, exported initial troop counts (per-team), runtime HUD counters.
-- [turkey-wars/unit.gd](turkey-wars/unit.gd): core unit state machine, targeting, attack timing, damage, death/fade behavior, material team tinting.
-- [turkey-wars/ranger.tscn](turkey-wars/ranger.tscn): ranger scene (ranged unit) configured with `attack_range = 75`, `hp = 175`, `attack_damage = 35`, and `projectile.tscn`.
-- [turkey-wars/wizard.tscn](turkey-wars/wizard.tscn): wizard scene (caster) configured with `hp = 350`, `attack_damage = 150`, `projectile = wizard_projectile.tscn`.
-- [turkey-wars/projectile.gd](turkey-wars/projectile.gd): simple homing projectile, applies `take_damage` on hit.
-- [turkey-wars/battlefield.tscn](turkey-wars/battlefield.tscn): main scene with `AttackerFrontline`, `AttackerBackline`, `DefenderFrontline`, `DefenderBackine` boxes and environment.
-
-**Current Git State**
-- Current branch: `final_technicalities` (tracking `origin/final_technicalities`).
-- Last merge: `battlefield` merged into `development` with conflicts auto-resolved (accepted `battlefield` versions for conflicts).
-- HEAD: `ed0770c` — commit message: "Resolve merge conflicts: accept battlefield versions" (2026-03-19).
-- Working tree: no unstaged changes expected for handover file after commit (handed off in this snapshot).
-
-**How to run locally (developer)**
-- Requirements: Godot 4.x (open the project root containing `project.godot`).
-- Steps:
-  - Open Godot and load the project at the repository root.
-  - Open scene: [turkey-wars/battlefield.tscn](turkey-wars/battlefield.tscn).
-  - Ensure `final_technicalities` branch is checked out (`git switch final_technicalities`).
-  - Press `Play` (F5) — the battlefield scene should run as-is.
-
-**Design & Architecture Notes**
-- Single `unit.gd` script implements all unit behavior. Specific stats are exported per `.tscn` and tuned per unit.
-- Ranged attack flow: `unit.gd` spawns `projectile_scene` and calls `fire(target, damage)`; projectile homing is in `projectile.gd`.
-- Spawning: `battle_manager.gd` uses `CSGBox3D` nodes as spawn areas; exported variables now include attacker/defender specific counts.
-- Visuals: team tint applied by duplicating per-mesh materials at runtime (`_apply_team_color`). No outline/mist systems remain.
-
-**Known Issues / Caveats**
-- `DefenderBackine` node name in `battlefield.tscn` appears misspelled (DefenderBackine). This is intentional in the current scene but should be normalized if code expects `DefenderBackline`.
-- Animation detection in `unit.gd` uses keyword matching that is intentionally broad — test with new assets and adjust search terms to avoid unexpected matches.
-- Merge history: recent auto-resolve accepted battlefield files; if you need to preserve older `development` variants, revert the merge and re-resolve.
-
-**Outstanding / Next-Big-Step Suggestions**
-Priority candidates for the next big step (pick one or more):
-- Implement team-based win/loss conditions and end-of-battle UI (victory screen, team counts, replay/reset).
-- Add deterministic wave/spawn scheduling (timed waves, reinforcement queues) and per-team composition editing UI.
-- Improve unit AI: add simple pathfinding around obstacles (NavigationRegion3D) and smarter target selection/prioritization.
-- Add a lightweight automated test harness or headless simulation runner to validate balance changes (spawn X vs Y, log outcomes).
-
-**LLM Handover / Instructions for the next agent**
-- System-level constraints:
-  - Use Godot 4.x APIs and GDScript idioms (no Godot 3 compatibility hacks).
-  - Avoid modifying art assets; focus code-first.
-  - Keep changes small and reversible; prefer adding new scenes/scripts rather than editing many existing files in place.
-
-- Files to inspect first (in order):
-  1. [turkey-wars/unit.gd](turkey-wars/unit.gd)
-  2. [turkey-wars/battle_manager.gd](turkey-wars/battle_manager.gd)
-  3. [turkey-wars/battlefield.tscn](turkey-wars/battlefield.tscn)
-  4. [turkey-wars/projectile.gd](turkey-wars/projectile.gd)
-  5. [turkey-wars/ranger.tscn](turkey-wars/ranger.tscn) and [turkey-wars/wizard.tscn](turkey-wars/wizard.tscn)
-
-- Suggested first concrete task for the LLM:
-  1. Implement an end-of-battle detection in `battle_manager.gd` that:
-     - Monitors live unit counts (already exposed via HUD counters).
-     - When one team reaches zero, freeze spawns and show a minimal `Control` popup stating winner.
-     - Add a `Restart` button that clears existing units and respawns initial composition.
-  2. Keep all additions under `turkey-wars/` and create a new scene `race_end_popup.tscn` plus a small controller script `race_end_controller.gd`.
-
-- Deliverables checklist for the LLM (mark when done):
-  - [ ] Add end-of-battle detection + UI popup.
-  - [ ] Add `Restart` functionality that reuses existing spawn logic.
-  - [ ] Update `HANDOVER.md` with any new commands or changed behavior.
-  - [ ] Run a local smoke test and report any errors.
-
-**Contact points & decisions made**
-- Major decisions recorded: all grass/mist/outline effects removed; focus on gameplay. Team tinting is used instead of outlines.
-- Branch workflow: `battlefield` → merged into `development`; current working branch for continued work: `final_technicalities`.
+### Core Tech Stack
+- **Engine:** Godot 4.6 (Forward Plus)
+- **Physics:** Jolt Physics (3D)
+- **Scripting:** GDScript for game logic; Python for automation and data processing.
+- **Data:** JSON-driven map adjacencies and province stats.
 
 ---
 
-If you want, I will now commit this handover to the `final_technicalities` branch and push it to origin, then provide the exact LLM prompt and system message to feed the next agent.
+## Architectural Map
+
+### 1. Global State (`game_state.gd`)
+The central hub for data persistence and scene transitions.
+- **`players`**: Manages army sizes, colors, and alive status.
+- **`attack_data`**: Temporary storage for the current battle's parameters (attacker/defender indices, province name, army composition).
+- **`start_battle()` / `resolve_battle()`**: Handles the flow between the Map and Battlefield.
+
+### 2. Strategy Map (`map_scene.gd` / `.tscn`)
+The primary game loop starts here.
+- **Phases:** 
+  - **Picking Phase:** Players take turns selecting starting provinces and capitals.
+  - **Playing Phase:** Players attack adjacent provinces.
+- **Mechanics:** 
+  - **Blitz:** Small neutral provinces can be "instantly conquered" if the attacker's army is significantly larger.
+  - **Visuals:** Provinces are `Area2D` nodes with `Polygon2D` coloring based on ownership.
+- **Generation:** `map_scene.tscn` is generated by `tools/generate_godot_scene.py` using `assets/turkey_final_provinces.json`.
+
+### 3. Battlefield System (`zez.gd` & `unit_2d.gd`)
+The current tactical system uses **2D billboard sprites in a 3D environment** (`new_battlefield.tscn`).
+- **Orchestrator (`zez.gd`)**: 
+  - Sets up the "Spring Afternoon" environment (lighting, sky, fog).
+  - Spawns units into `CSGBox3D` spawn areas based on `GameState.attack_data`.
+  - Manages the Battle HUD (unit counters, win-ratio slider).
+- **Units (`unit_2d.gd`)**: 
+  - Centralized state machine: `IDLE`, `MOVE`, `ATTACK`, `DEAD`.
+  - **Classes:** Soldier (Melee), Rifleman (Range), Rocketeer (AOE/Priority targeting), Tank (Heavy).
+  - **Animation:** Loads PNG sequences dynamically from `assets/new_battlefield_units/`.
+  - **Targeting:** Rocket Launchers prioritize `range` units; others target the closest enemy.
+
+### 4. Automation & Tools
+The project relies on external Python scripts to bypass repetitive manual editing in Godot:
+- **Root Scripts:**
+  - `fix_unit.py` / `update_zez.py`: Batch update script logic or scene properties via regex.
+  - `set_volumes.py`: Adjusts audio levels across all unit scenes.
+- **`tools/` Directory:**
+  - `generate_godot_scene.py`: Converts SVG/JSON map data into a functional Godot scene.
+  - `build_game_data.py`: Compiles raw province data into `game_data.json`.
+
+---
+
+## Asset Pipeline
+- **Units:** Frame-based sequences in `assets/new_battlefield_units/`.
+- **Audio:** SFX and BGM located in `assets/audio/sfx/`.
+- **UI:** Styled programmatically via `ui/tw_ui_style.gd` (Gold/Red/Blue theme).
+
+---
+
+## Known Issues & Technical Debt
+- **Spelling:** The node name `DefenderBackine` in `battlefield.tscn` is misspelled but currently referenced in code; normalize with caution.
+- **2D vs 3D:** Legacy 3D units (`unit.gd`) and battle manager (`battle_manager.gd`) still exist but are superseded by the `zez.gd` / `unit_2d.gd` system.
+- **Hardcoded Paths:** Many root-level Python scripts have hardcoded paths to `turkey-wars/` files.
+
+---
+
+## Suggested Next Steps
+1. **Reinforcement System:** Implement a way for players to spend "army points" earned in battle to buy more units mid-campaign.
+2. **AI Improvements:** Add basic obstacle avoidance for units in the 3D battlefield (currently they walk in straight lines).
+3. **Map Polish:** Add icons for capitals and visual indicators for "Blitzable" provinces.
+4. **Cleanup:** Move root-level Python scripts into a dedicated `scripts/` or `automation/` folder and update their internal paths.

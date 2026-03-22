@@ -9,6 +9,7 @@ extends Control
 var phase_label: Label = null
 
 var unit_plus_buttons  := {}
+var unit_plus_ten_buttons := {}
 var unit_minus_buttons := {}
 
 var is_attacker_phase = true
@@ -170,10 +171,18 @@ func _setup_ui():
 		var btn_plus := Button.new()
 		btn_plus.text = "+"
 		btn_plus.custom_minimum_size = Vector2(38, 38)
-		btn_plus.pressed.connect(_on_unit_plus.bind(unit_type))
+		btn_plus.pressed.connect(_on_unit_plus.bind(unit_type, 1))
 		TWUIStyle.style_button(btn_plus)
 		hbox.add_child(btn_plus)
 		unit_plus_buttons[unit_type] = btn_plus
+
+		var btn_plus_ten := Button.new()
+		btn_plus_ten.text = "+10"
+		btn_plus_ten.custom_minimum_size = Vector2(52, 38)
+		btn_plus_ten.pressed.connect(_on_unit_plus.bind(unit_type, 10))
+		TWUIStyle.style_button(btn_plus_ten)
+		hbox.add_child(btn_plus_ten)
+		unit_plus_ten_buttons[unit_type] = btn_plus_ten
 
 	# ── FOOTER ──────────────────────────────────────────────────
 	var footer_panel := PanelContainer.new()
@@ -241,12 +250,21 @@ func _start_defender_phase():
 func _reset_selection():
 	selected_units = {"warrior": 0, "ranger": 0, "wizard": 0, "rocket_launcher": 0}
 
-func _on_unit_plus(unit_type):
+func _on_unit_plus(unit_type, amount):
 	var cost = GameState.UNIT_COSTS[unit_type]
-	if current_budget >= cost:
-		current_budget -= cost
-		selected_units[unit_type] += 1
+	var total_cost = cost * amount
+	
+	if current_budget >= total_cost:
+		current_budget -= total_cost
+		selected_units[unit_type] += amount
 		_update_ui()
+	else:
+		# Add as many as possible
+		var max_possible = current_budget / cost
+		if max_possible > 0:
+			current_budget -= max_possible * cost
+			selected_units[unit_type] += max_possible
+			_update_ui()
 
 func _on_unit_minus(unit_type):
 	if selected_units[unit_type] > 0:
@@ -266,6 +284,8 @@ func _update_ui():
 		var can_afford = current_budget >= cost
 		if unit_plus_buttons.has(unit_type):
 			unit_plus_buttons[unit_type].disabled = not can_afford
+		if unit_plus_ten_buttons.has(unit_type):
+			unit_plus_ten_buttons[unit_type].disabled = not can_afford
 		if unit_minus_buttons.has(unit_type):
 			unit_minus_buttons[unit_type].disabled = selected_units[unit_type] <= 0
 
