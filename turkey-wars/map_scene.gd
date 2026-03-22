@@ -152,12 +152,15 @@ func _load_or_init_session():
 	_init_new_game_state(player_names)
 
 func _init_new_game_state(player_names: Array):
+	print("[DEBUG MapScene] Initializing NEW Game State.")
 	players = []
 	province_owners.clear()
 	GameState.capitals.clear()
+	GameState.players = [] # CLEAR IT
 	turn_index = 0
 	game_phase = "picking"
-	
+	# ...
+
 	var num_players = clampi(player_names.size(), 2, 5)
 	var region_key = str(num_players)
 	
@@ -186,28 +189,32 @@ func _init_new_game_state(player_names: Array):
 			"region": region_assigned,
 			"color": c.to_html(false),
 			"army": 35000,
-			"provinces": []
+			"provinces": [],
+			"alive": true
 		})
-		
+	
+	# Sync GameState
+	GameState.players = players
+	GameState.province_owners = province_owners
+	GameState.current_turn = turn_index
+	GameState.game_phase = game_phase
+	
 	_save_session()
 
 func _restore_game_state(state: Dictionary):
+	print("[DEBUG MapScene] Restoring Game State.")
 	players = state.get("players", [])
 	province_owners = state.get("province_owners", {})
 	GameState.capitals = state.get("capitals", {})
 	turn_index = state.get("turn_index", 0)
 	game_phase = state.get("game_phase", "picking")
 	
-	# Override with Global GameState if it has newer data from battles
+	# Override with Global GameState
 	if GameState.players.size() > 0 and GameState.province_owners.size() > 0:
 		players = GameState.players
 		province_owners = GameState.province_owners
-		# capitals is already in GameState, we might want to sync back if state had it
-		# but GameState is the authority for battle results.
 		turn_index = GameState.current_turn
 		game_phase = GameState.game_phase
-		
-		# Auto-save immediately to sync any battle results to disk
 		_save_session()
 
 
@@ -252,8 +259,9 @@ func _update_ui():
 
 		if all_players_army_label:
 			var bbcode = ""
-			for pp in players:
-				var is_alive = pp.get("alive", true)
+			for i in range(players.size()):
+				var pp = players[i]
+				var is_alive = GameState._is_player_alive(i)
 				var color_hex = Color(pp["color"]).to_html(false)
 				var army_val = format_number(int(pp["army"]))
 				
@@ -289,12 +297,9 @@ func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int, a
 			if not GameState.capitals.has(turn_index):
 				GameState.capitals[turn_index] = province_name
 
-			# Move to next picker
 			GameState.players = players
 			GameState.province_owners = province_owners
 			GameState.next_turn()
-			
-			# Sync back local turn_index
 			turn_index = GameState.current_turn
 			
 			if turn_index == 0:
@@ -354,13 +359,10 @@ func _instant_conquer(province_name: String, def_idx: int, neutral_size: int) ->
 	province_owners[province_name] = turn_index
 	players[turn_index]["army"] += int(neutral_size * 0.1)
 	
-	# Check if we captured a capital via Blitz
 	if def_idx != -1:
 		var is_cap = (GameState.capitals.get(def_idx) == province_name)
 		if is_cap:
 			players[def_idx]["alive"] = false
-			print(players[def_idx]["name"] + " eliminated by Blitz!")
-			
 			# Neutralize remaining lands
 			var to_clear = []
 			for p in province_owners:
@@ -495,17 +497,20 @@ func _update_colors():
 				var is_my_own = is_owned and owner_idx == turn_index
 				var is_neighboring = _is_neighbor(child.name, turn_index)
 				var is_capital = false
-				if is_owned and GameState.capitals.has(owner_idx):
-					is_capital = (GameState.capitals[owner_idx] == child.name)
-
+				
 				if is_owned:
+					# Robust capital lookup (handles JSON int/string key conversion)
+					var cap_name = GameState.capitals.get(owner_idx, GameState.capitals.get(str(owner_idx), ""))
+					is_capital = (cap_name == child.name)
+
 					var raw_col = players[owner_idx]["color"]
 					if typeof(raw_col) == TYPE_STRING:
 						target_color = Color(raw_col)
 					else:
 						target_color = raw_col
+						
 					if is_capital:
-						target_color = target_color.darkened(0.5)
+						target_color = target_color.darkened(0.6)
 				elif is_neighboring:
 					target_color = Color.GRAY
 				else:

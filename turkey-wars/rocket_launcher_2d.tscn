@@ -4,7 +4,7 @@
 [node name="RocketLauncher" instance=ExtResource("1_scene")]
 unit_class = "rocket_launcher"
 hp = 300.0
-attack_damage = 75.0
+attack_damage = 55.0
 attack_speed = 0.33
 attack_range = 50.0
 movement_speed = 3.0
@@ -12,4 +12,4 @@ is_ranged = true
 is_backline = true
 default_faces_left = true
 aoe_radius = 4.0
-aoe_damage = 25.0
+aoe_damage = 20.0

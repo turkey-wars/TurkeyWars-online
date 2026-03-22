@@ -3,7 +3,7 @@
 
 [node name="Rifleman" instance=ExtResource("1_scene")]
 unit_class = "range"
-hp = 175.0
+hp = 250.0
 attack_damage = 35.0
 attack_speed = 1.43
 attack_range = 25.0
