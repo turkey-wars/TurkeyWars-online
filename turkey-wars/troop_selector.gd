@@ -70,7 +70,7 @@ func _setup_ui():
 	hdr_hbox.add_child(title_col)
 
 	phase_label = Label.new()
-	phase_label.text = "ATTACKER"
+	phase_label.text = tr("ATTACKER")
 	TWUIStyle.style_label_muted(phase_label)
 	title_col.add_child(phase_label)
 
@@ -85,7 +85,7 @@ func _setup_ui():
 	hdr_hbox.add_child(budget_col)
 
 	var budget_hdr := Label.new()
-	budget_hdr.text = "BUDGET REMAINING"
+	budget_hdr.text = tr("BUDGET REMAINING")
 	budget_hdr.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	TWUIStyle.style_label_muted(budget_hdr)
 	budget_col.add_child(budget_hdr)
@@ -115,7 +115,7 @@ func _setup_ui():
 	]
 	for i in unit_defs.size():
 		var unit_type: String  = unit_defs[i][0]
-		var display_name: String = unit_defs[i][1]
+		var display_name: String = tr(unit_defs[i][1])
 
 		if i > 0:
 			var row_sep := HSeparator.new()
@@ -207,7 +207,7 @@ func _setup_ui():
 	budget_bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	footer_hbox.add_child(budget_bar)
 
-	confirm_button.text = "CONFIRM ORDERS"
+	confirm_button.text = tr("CONFIRM ORDERS")
 	confirm_button.custom_minimum_size = Vector2(220, 0)
 	confirm_button.pressed.connect(_on_confirm)
 	TWUIStyle.style_button_accent(confirm_button)
@@ -216,9 +216,9 @@ func _setup_ui():
 func _start_attacker_phase():
 	is_attacker_phase = true
 	var att_idx = GameState.attack_data.attacker_idx
-	title_label.text = GameState.players[att_idx].name + "'s Attack Force"
+	title_label.text = tr("%s's Attack Force") % GameState.players[att_idx].name
 	if phase_label:
-		phase_label.text = "ATTACKER"
+		phase_label.text = tr("ATTACKER")
 		phase_label.add_theme_color_override("font_color", TWUIStyle.COLOR_ACCENT_RED)
 
 	initial_budget = GameState.players[att_idx].army
@@ -232,14 +232,14 @@ func _start_defender_phase():
 	is_attacker_phase = false
 	var def_idx = GameState.attack_data.defender_idx
 	if phase_label:
-		phase_label.text = "DEFENDER"
+		phase_label.text = tr("DEFENDER")
 		phase_label.add_theme_color_override("font_color", TWUIStyle.COLOR_ACCENT_BLUE)
 
 	if GameState.attack_data.is_capital:
-		title_label.text = GameState.players[def_idx].name + "'s Capital Defense"
+		title_label.text = tr("%s's Capital Defense") % GameState.players[def_idx].name
 		initial_budget = 75000
 	else:
-		title_label.text = GameState.players[def_idx].name + "'s Defense Force"
+		title_label.text = tr("%s's Defense Force") % GameState.players[def_idx].name
 		initial_budget = GameState.players[def_idx].army
 
 	current_budget = initial_budget

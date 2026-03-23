@@ -97,7 +97,7 @@ func _refresh_load_session_page() -> void:
 			file_name = dir.get_next()
 	else:
 		var lbl := Label.new()
-		lbl.text = "No saves found"
+		lbl.text = tr("No saves found")
 		TWUIStyle.style_label_muted(lbl)
 		list.add_child(lbl)
 
@@ -140,7 +140,7 @@ func _on_add_player_pressed() -> void:
 
 	var remove_button := Button.new()
 	remove_button.name = "RemoveButton"
-	remove_button.text = "Remove"
+	remove_button.text = tr("Remove")
 	remove_button.pressed.connect(_on_remove_player_pressed.bind(player_row))
 
 	player_row.add_child(player_input)
@@ -258,25 +258,25 @@ func _apply_shared_style() -> void:
 			TWUIStyle.style_button(btn)
 			btn.custom_minimum_size = Vector2(0, 38)
 			btn.modulate.a = 0.6
-			btn.text = "← BACK"
+			btn.text = tr("← BACK")
 
 	# Primary action button — gold accent, prominent.
 	var create_btn = $CenterContainer/MainMenuCard/CardContent/NewLocalSessionPage/CreateWorldButton
 	if create_btn:
 		TWUIStyle.style_button_accent(create_btn)
 		create_btn.custom_minimum_size = Vector2(0, 50)
-		create_btn.text = "DEPLOY WORLD"
+		create_btn.text = tr("DEPLOY WORLD")
 
 	# Small form labels.
 	var world_lbl = $CenterContainer/MainMenuCard/CardContent/NewLocalSessionPage/WorldNameLabel
 	if world_lbl:
 		TWUIStyle.style_label_muted(world_lbl)
-		world_lbl.text = "WORLD NAME"
+		world_lbl.text = tr("WORLD NAME")
 
 	var players_lbl = $CenterContainer/MainMenuCard/CardContent/NewLocalSessionPage/PlayersLabel
 	if players_lbl:
 		TWUIStyle.style_label_muted(players_lbl)
-		players_lbl.text = "COMMANDERS"
+		players_lbl.text = tr("COMMANDERS")
 
 	# WorldName LineEdit.
 	if world_name_input:
@@ -308,14 +308,14 @@ func _build_game_header() -> void:
 
 	# "TURKEY WARS" game title.
 	var title_lbl := Label.new()
-	title_lbl.text = "TURKEY WARS"
+	title_lbl.text = tr("TURKEY WARS")
 	title_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	TWUIStyle.style_game_title(title_lbl)
 	header.add_child(title_lbl)
 
 	# Subtitle.
 	var sub_lbl := Label.new()
-	sub_lbl.text = "GRAND STRATEGY"
+	sub_lbl.text = tr("GRAND STRATEGY")
 	sub_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	TWUIStyle.style_label_muted(sub_lbl)
 	header.add_child(sub_lbl)

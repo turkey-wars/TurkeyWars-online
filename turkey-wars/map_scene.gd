@@ -90,7 +90,7 @@ func _build_armies_panel() -> void:
 	right_panel.add_child(vbox)
 
 	var header_lbl := Label.new()
-	header_lbl.text = "ARMIES"
+	header_lbl.text = tr("ARMIES")
 	header_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	TWUIStyle.style_label_muted(header_lbl)
 	vbox.add_child(header_lbl)
@@ -106,7 +106,7 @@ func _build_armies_panel() -> void:
 
 	# --- Add Return to Main Menu Button ---
 	var menu_btn := Button.new()
-	menu_btn.text = "RETURN TO MAIN MENU"
+	menu_btn.text = tr("RETURN TO MAIN MENU")
 	menu_btn.custom_minimum_size.y = 40
 	TWUIStyle.style_button(menu_btn)
 	menu_btn.pressed.connect(_on_main_menu_pressed)
@@ -244,17 +244,17 @@ func format_number(n: int) -> String:
 	return res
 
 func get_strength_text_and_color(strength: int) -> Array:
-	if strength == 1: return ["Very Easy", Color("00ff00")]
-	elif strength == 2: return ["Easy", Color("90ee90")]
-	elif strength == 3: return ["Normal", Color("ffa500")]
-	elif strength == 4: return ["Strong", Color("ff4500")]
-	elif strength == 5: return ["Very Strong", Color("ff0000")]
-	return ["Unknown", Color("ffffff")]
+	if strength == 1: return [tr("Very Easy"), Color("00ff00")]
+	elif strength == 2: return [tr("Easy"), Color("90ee90")]
+	elif strength == 3: return [tr("Normal"), Color("ffa500")]
+	elif strength == 4: return [tr("Strong"), Color("ff4500")]
+	elif strength == 5: return [tr("Very Strong"), Color("ff0000")]
+	return [tr("Unknown"), Color("ffffff")]
 
 func _update_ui():
 	if players.size() > 0:
 		var p = players[turn_index]
-		player_army_label.text = "%s's Turn" % p["name"]
+		player_army_label.text = p["name"] + tr("'s Turn")
 		player_army_label.add_theme_color_override("font_color", Color(p["color"]))
 
 		if all_players_army_label:
@@ -269,7 +269,7 @@ func _update_ui():
 					bbcode += "[color=#%s]%s:[/color]\n" % [color_hex, pp["name"]]
 					bbcode += "[font_size=32][b]%s[/b][/font_size]\n\n" % army_val
 				else:
-					bbcode += "[color=#888888][s]%s[/s][/color] [font_size=14][i](ELIMINATED)[/i][/font_size]\n\n" % pp["name"]
+					bbcode += "[color=#888888][s]%s[/s][/color] [font_size=14][i](" + tr("ELIMINATED") + ")[/i][/font_size]\n\n" % pp["name"]
 			all_players_army_label.text = bbcode
 
 func _is_province_selectable(province_name: String) -> bool:
@@ -314,7 +314,7 @@ func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int, a
 			
 			var p_data = game_data.get(province_name, {})
 			if not _is_neighbor(province_name, turn_index):
-				print("Must attack an adjacent province!")
+				_show_toast(tr("MUST_ATTACK_ADJACENT"))
 				return
 				
 			var neutral_size = int(p_data.get("initial_army", p_data.get("Initial_Army", 10000)))
@@ -349,12 +349,12 @@ func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int, a
 				defender_name = "Neutral"
 			else:
 				defender_name = str(players[def_idx]["name"])
-			_show_toast("Battle: %s vs %s" % [players[turn_index]["name"], defender_name])
+			_show_toast(tr("Battle: %s vs %s") % [players[turn_index]["name"], defender_name])
 			GameState.start_battle(turn_index, def_idx, province_name)
 
 func _instant_conquer(province_name: String, def_idx: int, neutral_size: int) -> void:
 	var attacker_name = players[turn_index]["name"]
-	_show_toast("BLITZ! %s instantly conquers %s" % [attacker_name, province_name])
+	_show_toast(tr("BLITZ! %s instantly conquers %s") % [attacker_name, province_name])
 	
 	province_owners[province_name] = turn_index
 	players[turn_index]["army"] += int(neutral_size * 0.1)
@@ -403,20 +403,20 @@ func _on_area_mouse_entered(area: Area2D):
 		if province_owners.has(province_name):
 			tooltip_owner = players[int(province_owners[province_name])]["name"]
 		
-		name_label.text = "Name: " + province_name + " (" + tooltip_owner + ")"
+		name_label.text = tr("Name: ") + province_name + " (" + tooltip_owner + ")"
 		
 		var strength_val = int(data.get("strength", data.get("Strength", 0)))
 		var strength_info = get_strength_text_and_color(strength_val)
-		strength_label.text = "Strength: " + strength_info[0]
+		strength_label.text = tr("Strength: ") + strength_info[0]
 		strength_label.add_theme_color_override("font_color", strength_info[1])
 		
 		var army_val = int(data.get("initial_army", data.get("Initial_Army", 0)))
-		army_label.text = "Army Size: " + format_number(army_val)
+		army_label.text = tr("Army Size: ") + format_number(army_val)
 	else:
-		name_label.text = "Name: " + province_name
-		strength_label.text = "Strength: ?"
+		name_label.text = tr("Name: ") + province_name
+		strength_label.text = tr("Strength: ") + "?"
 		strength_label.add_theme_color_override("font_color", Color.WHITE)
-		army_label.text = "Army Size: ?"
+		army_label.text = tr("Army Size: ") + "?"
 
 	tooltip_panel.visible = true
 

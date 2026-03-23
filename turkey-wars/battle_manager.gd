@@ -81,14 +81,14 @@ func _setup_hud():
 	hud_layer.add_child(root)
 
 	attacker_count_label = Label.new()
-	attacker_count_label.text = "Attackers: 0"
+	attacker_count_label.text = tr("Attackers: %d") % 0
 	attacker_count_label.position = Vector2(24, 14)
 	attacker_count_label.add_theme_font_size_override("font_size", 28)
 	attacker_count_label.add_theme_color_override("font_color", Color(1.0, 0.3, 0.3))
 	root.add_child(attacker_count_label)
 
 	defender_count_label = Label.new()
-	defender_count_label.text = "Defenders: 0"
+	defender_count_label.text = tr("Defenders: %d") % 0
 	defender_count_label.anchor_left = 1.0
 	defender_count_label.anchor_right = 1.0
 	defender_count_label.offset_left = -320
@@ -114,8 +114,8 @@ func _update_team_counters():
 		elif u.team == 1 and u.current_state != u.State.DEAD:
 			defender_alive += 1
 
-	attacker_count_label.text = "Attackers: %d" % attacker_alive
-	defender_count_label.text = "Defenders: %d" % defender_alive
+	attacker_count_label.text = tr("Attackers: %d") % attacker_alive
+	defender_count_label.text = tr("Defenders: %d") % defender_alive
 	
 	if not battle_ended_flag:
 		# Need to make sure units actually spawned first
