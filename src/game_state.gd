@@ -36,21 +36,101 @@ const UNIT_COSTS = {
 
 var last_save_path = "user://saves/default.json"
 
+# ── Serialization (used by NetworkManager for online sync) ───────────────────
+
+func serialize() -> Dictionary:
+	var p_list: Array = []
+	for p in players:
+		var pc: Dictionary = {}
+		for key in p:
+			pc[key] = p[key]
+		# Store Color as [r,g,b,a] array so it survives JSON round-trips
+		if typeof(p.get("color")) == TYPE_COLOR:
+			var c: Color = p["color"]
+			pc["color"] = [c.r, c.g, c.b, c.a]
+		p_list.append(pc)
+	return {
+		"players":        p_list,
+		"neutral_cities": neutral_cities.duplicate(),
+		"province_owners": province_owners.duplicate(),
+		"capitals":       capitals.duplicate(),
+		"current_turn":   current_turn,
+		"game_phase":     game_phase,
+		"last_save_path": last_save_path,
+		"attack_data": {
+			"attacker_idx":   attack_data.attacker_idx,
+			"defender_idx":   attack_data.defender_idx,
+			"province":       attack_data.province,
+			"attacker_army":  attack_data.attacker_army.duplicate(),
+			"defender_army":  attack_data.defender_army.duplicate(),
+			"buffed_unit":    attack_data.buffed_unit,
+			"nerfed_unit":    attack_data.nerfed_unit,
+			"is_capital":     attack_data.is_capital,
+			"city_value":     attack_data.city_value,
+		},
+	}
+
+
+func apply_state(data: Dictionary) -> void:
+	players = []
+	for p in data.get("players", []):
+		var pc: Dictionary = {}
+		for key in p:
+			pc[key] = p[key]
+		var c = p.get("color")
+		if typeof(c) == TYPE_ARRAY and (c as Array).size() == 4:
+			pc["color"] = Color(c[0], c[1], c[2], c[3])
+		# String hex colours (e.g. "ff3333") are kept as-is; map_scene handles them
+		players.append(pc)
+
+	neutral_cities  = data.get("neutral_cities",  {}).duplicate()
+	province_owners = data.get("province_owners", {}).duplicate()
+	capitals        = data.get("capitals",        {}).duplicate()
+	current_turn    = data.get("current_turn", 0)
+	game_phase      = data.get("game_phase", "picking")
+	last_save_path  = data.get("last_save_path", last_save_path)
+
+	var ad: Dictionary = data.get("attack_data", {})
+	if not ad.is_empty():
+		attack_data.attacker_idx  = ad.get("attacker_idx", -1)
+		attack_data.defender_idx  = ad.get("defender_idx", -1)
+		attack_data.province      = ad.get("province", "")
+		attack_data.attacker_army = ad.get("attacker_army",
+				{"warrior": 0, "ranger": 0, "wizard": 0, "rocket_launcher": 0}).duplicate()
+		attack_data.defender_army = ad.get("defender_army",
+				{"warrior": 0, "ranger": 0, "wizard": 0, "rocket_launcher": 0}).duplicate()
+		attack_data.buffed_unit   = ad.get("buffed_unit", "")
+		attack_data.nerfed_unit   = ad.get("nerfed_unit", "")
+		attack_data.is_capital    = ad.get("is_capital", false)
+		attack_data.city_value    = ad.get("city_value", 0)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+
 func start_battle(attacker, defender, prov, city_val):
 	attack_data.attacker_idx = attacker
 	attack_data.defender_idx = defender
 	attack_data.province = prov
 	attack_data.city_value = city_val
-	
+
 	if defender == -1:
 		attack_data.is_capital = false
 	else:
 		# JSON safety: check both int and string keys
 		var cap_name = capitals.get(defender, capitals.get(str(defender), ""))
 		attack_data.is_capital = (cap_name == prov)
-	
-	# Transition to troop selection UI or battlefield
-	get_tree().change_scene_to_file("res://troop_selector.tscn")
+
+	# Assign buff/nerf here so it's in the state before any scene change
+	if attack_data.buffed_unit == "":
+		var units := ["warrior", "ranger", "rocket_launcher", "wizard"]
+		units.shuffle()
+		attack_data.buffed_unit = units[0]
+		attack_data.nerfed_unit = units[1]
+
+	if NetworkManager.is_online:
+		NetworkManager.net_sync_and_change_scene(serialize(), "res://troop_selector.tscn")
+	else:
+		get_tree().change_scene_to_file("res://troop_selector.tscn")
 
 func simulate_battle(att_idx: int, def_idx: int, prov: String, city_val: int):
 	# Bot vs Bot simulation
@@ -118,7 +198,10 @@ func resolve_battle(attacker_won: bool):
 				print("[DEBUG GameState] Neutralized ", provinces_to_clear.size(), " provinces.")
 	
 	next_turn()
-	get_tree().change_scene_to_file("res://map_scene.tscn")
+	if NetworkManager.is_online:
+		NetworkManager.net_sync_and_change_scene(serialize(), "res://map_scene.tscn")
+	else:
+		get_tree().change_scene_to_file("res://map_scene.tscn")
 
 func next_turn():
 	var prev_turn = current_turn

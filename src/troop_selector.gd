@@ -24,10 +24,12 @@ var selected_units = {
 }
 
 var unit_labels = {}
+var _waiting_overlay: PanelContainer = null
 
 func _ready():
-	# Pick a buffed and nerfed unit if it's the start of the battle
-	if GameState.attack_data.buffed_unit == "":
+	# Buff/nerf is now assigned in GameState.start_battle() so it's synced before
+	# the scene loads in online mode. This is a non-online fallback only.
+	if not NetworkManager.is_online and GameState.attack_data.buffed_unit == "":
 		var units = ["warrior", "ranger", "rocket_launcher", "wizard"]
 		units.shuffle()
 		GameState.attack_data.buffed_unit = units[0]
@@ -35,7 +37,11 @@ func _ready():
 		print("[DEBUG TroopSelector] Buffed: ", GameState.attack_data.buffed_unit, " | Nerfed: ", GameState.attack_data.nerfed_unit)
 
 	_setup_ui()
+	_setup_waiting_overlay()
 	_start_attacker_phase()
+
+	if NetworkManager.is_online:
+		NetworkManager.state_applied.connect(_on_network_state_applied)
 
 func _setup_ui():
 	var outer := MarginContainer.new()
@@ -229,6 +235,55 @@ func _setup_ui():
 	TWUIStyle.style_button_accent(confirm_button)
 	footer_hbox.add_child(confirm_button)
 
+func _setup_waiting_overlay() -> void:
+	_waiting_overlay = PanelContainer.new()
+	_waiting_overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_waiting_overlay.visible = false
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(0.04, 0.05, 0.075, 0.88)
+	_waiting_overlay.add_theme_stylebox_override("panel", sb)
+	var lbl := Label.new()
+	lbl.set_anchors_preset(Control.PRESET_FULL_RECT)
+	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	lbl.vertical_alignment   = VERTICAL_ALIGNMENT_CENTER
+	lbl.text = tr("Waiting for opponent to deploy forces...")
+	TWUIStyle.style_label(lbl, true)
+	lbl.add_theme_font_size_override("font_size", 26)
+	_waiting_overlay.add_child(lbl)
+	add_child(_waiting_overlay)
+
+
+func _is_my_phase() -> bool:
+	if not NetworkManager.is_online:
+		return true
+	if is_attacker_phase:
+		return NetworkManager.my_player_index == GameState.attack_data.attacker_idx
+	else:
+		return NetworkManager.my_player_index == GameState.attack_data.defender_idx
+
+
+func _update_interaction_state() -> void:
+	var active := _is_my_phase()
+	if _waiting_overlay:
+		_waiting_overlay.visible = not active
+	confirm_button.visible = active
+	for key in unit_plus_buttons:
+		unit_plus_buttons[key].visible = active
+		unit_minus_buttons[key].visible = active
+		unit_plus_ten_buttons[key].visible = active
+
+
+# Called when host broadcasts a state update while we are in troop_selector.
+func _on_network_state_applied() -> void:
+	var att_total: int = 0
+	for v in GameState.attack_data.attacker_army.values():
+		att_total += v
+	# Attacker just confirmed remotely → switch to defender phase on all clients.
+	if att_total > 0 and is_attacker_phase and GameState.attack_data.defender_idx != -1:
+		is_attacker_phase = false
+		_start_defender_phase()
+
+
 func _start_attacker_phase():
 	is_attacker_phase = true
 	var att_idx = GameState.attack_data.attacker_idx
@@ -243,8 +298,10 @@ func _start_attacker_phase():
 
 	_reset_selection()
 	_update_ui()
-	
-	if p.get("is_bot", false):
+	_update_interaction_state()
+
+	# Bots only auto-select on host (or in offline mode).
+	if p.get("is_bot", false) and (not NetworkManager.is_online or NetworkManager.is_host):
 		print("[DEBUG TroopSelector] Attacker is BOT. Auto-selecting...")
 		_auto_select_bot_army()
 		await get_tree().create_timer(1.0).timeout
@@ -271,8 +328,10 @@ func _start_defender_phase():
 
 	_reset_selection()
 	_update_ui()
-	
-	if p.get("is_bot", false):
+	_update_interaction_state()
+
+	# Bots only auto-select on host (or in offline mode).
+	if p.get("is_bot", false) and (not NetworkManager.is_online or NetworkManager.is_host):
 		print("[DEBUG TroopSelector] Defender is BOT. Auto-selecting...")
 		_auto_select_bot_army()
 		await get_tree().create_timer(1.0).timeout
@@ -386,18 +445,33 @@ func _update_ui():
 func _on_confirm():
 	if is_attacker_phase:
 		GameState.attack_data.attacker_army = selected_units.duplicate()
-		
+
 		var def_idx = GameState.attack_data.defender_idx
 		if def_idx == -1:
-			# Neutral city, auto-generate and start battle
+			# Neutral city — auto-generate defender then go to battlefield.
 			_generate_neutral_army()
-			get_tree().change_scene_to_file("res://new_battlefield.tscn")
+			if NetworkManager.is_online:
+				NetworkManager.net_sync_and_change_scene(
+						GameState.serialize(), "res://new_battlefield.tscn")
+			else:
+				get_tree().change_scene_to_file("res://new_battlefield.tscn")
 		else:
-			# Next player's turn to pick
-			_start_defender_phase()
+			# Human defender: sync attacker selection, all clients switch to defender phase.
+			if NetworkManager.is_online:
+				NetworkManager.net_sync(GameState.serialize())
+				# Local transition handled in _on_network_state_applied() for all clients.
+				# But the active attacker needs to transition locally too.
+				is_attacker_phase = false
+				_start_defender_phase()
+			else:
+				_start_defender_phase()
 	else:
 		GameState.attack_data.defender_army = selected_units.duplicate()
-		get_tree().change_scene_to_file("res://new_battlefield.tscn")
+		if NetworkManager.is_online:
+			NetworkManager.net_sync_and_change_scene(
+					GameState.serialize(), "res://new_battlefield.tscn")
+		else:
+			get_tree().change_scene_to_file("res://new_battlefield.tscn")
 
 func _generate_neutral_army():
 	var budget = GameState.attack_data.city_value

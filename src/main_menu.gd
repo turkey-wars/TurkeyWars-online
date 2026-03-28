@@ -256,8 +256,246 @@ func _on_new_local_session_pressed() -> void:
 	_update_add_player_button_state()
 
 
+## ── Online session pages ─────────────────────────────────────────────────────
+
+var _online_content: VBoxContainer = null
+var _online_state: String = ""  # "choose" | "host_lobby" | "join"
+
 func _on_new_online_session_pressed() -> void:
 	_show_page(new_online_session_page)
+	_build_online_choose_ui()
+
+func _clear_online_content() -> void:
+	if is_instance_valid(_online_content):
+		_online_content.queue_free()
+	_online_content = VBoxContainer.new()
+	_online_content.name = "OnlineContent"
+	_online_content.add_theme_constant_override("separation", 10)
+	_online_content.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	# Insert before the BackButton (always last child).
+	new_online_session_page.add_child(_online_content)
+	new_online_session_page.move_child(_online_content, new_online_session_page.get_child_count() - 2)
+
+func _build_online_choose_ui() -> void:
+	_clear_online_content()
+	_online_state = "choose"
+
+	var name_lbl := Label.new()
+	name_lbl.text = tr("YOUR COMMANDER NAME")
+	TWUIStyle.style_label_muted(name_lbl)
+	_online_content.add_child(name_lbl)
+
+	var name_input := LineEdit.new()
+	name_input.name = "OnlineNameInput"
+	name_input.placeholder_text = tr("Commander Name")
+	name_input.text = "Commander"
+	TWUIStyle.style_line_edit(name_input)
+	_online_content.add_child(name_input)
+
+	var sep := Control.new()
+	sep.custom_minimum_size.y = 8
+	_online_content.add_child(sep)
+
+	var host_btn := Button.new()
+	host_btn.text = tr("HOST GAME")
+	host_btn.custom_minimum_size.y = 50
+	TWUIStyle.style_button_accent(host_btn)
+	host_btn.pressed.connect(_on_host_pressed.bind(name_input))
+	_online_content.add_child(host_btn)
+
+	var join_btn := Button.new()
+	join_btn.text = tr("JOIN GAME")
+	join_btn.custom_minimum_size.y = 46
+	TWUIStyle.style_button(join_btn)
+	join_btn.pressed.connect(_on_join_pressed.bind(name_input))
+	_online_content.add_child(join_btn)
+
+func _on_host_pressed(name_input: LineEdit) -> void:
+	var player_name := name_input.text.strip_edges()
+	if player_name.is_empty():
+		player_name = "Commander"
+	_show_connecting_status(tr("Connecting to relay server..."))
+	NetworkManager.connection_failed.connect(
+		func(reason): _show_online_error(reason), CONNECT_ONE_SHOT)
+	NetworkManager.room_created.connect(func(_c: String):
+		if not NetworkManager.lobby_changed.is_connected(_on_lobby_changed):
+			NetworkManager.lobby_changed.connect(_on_lobby_changed)
+		_build_host_lobby_ui()
+	, CONNECT_ONE_SHOT)
+	NetworkManager.host_game(player_name)
+
+func _build_host_lobby_ui() -> void:
+	_clear_online_content()
+	_online_state = "host_lobby"
+
+	var code_hdr := Label.new()
+	code_hdr.text = tr("SHARE THIS ROOM CODE")
+	TWUIStyle.style_label_muted(code_hdr)
+	_online_content.add_child(code_hdr)
+
+	var code_val := Label.new()
+	code_val.name = "RoomCodeLabel"
+	code_val.text = NetworkManager.room_code
+	TWUIStyle.style_label_gold(code_val, 28)
+	_online_content.add_child(code_val)
+
+	var div := HSeparator.new()
+	div.add_theme_stylebox_override("separator", TWUIStyle.make_gold_separator_stylebox())
+	_online_content.add_child(div)
+
+	var players_hdr := Label.new()
+	players_hdr.text = tr("COMMANDERS IN LOBBY")
+	TWUIStyle.style_label_muted(players_hdr)
+	_online_content.add_child(players_hdr)
+
+	var player_list := VBoxContainer.new()
+	player_list.name = "LobbyPlayerList"
+	player_list.add_theme_constant_override("separation", 4)
+	_online_content.add_child(player_list)
+	_refresh_lobby_list()
+
+	var spacer := Control.new()
+	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_online_content.add_child(spacer)
+
+	var start_btn := Button.new()
+	start_btn.name = "StartGameButton"
+	start_btn.text = tr("START GAME")
+	start_btn.custom_minimum_size.y = 50
+	start_btn.disabled = NetworkManager.lobby_players.size() < 2
+	TWUIStyle.style_button_accent(start_btn)
+	start_btn.pressed.connect(_on_start_online_game_pressed)
+	_online_content.add_child(start_btn)
+
+func _on_lobby_changed() -> void:
+	if _online_state == "host_lobby":
+		_refresh_lobby_list()
+		var btn := _online_content.get_node_or_null("StartGameButton") as Button
+		if btn:
+			btn.disabled = NetworkManager.lobby_players.size() < 2
+	elif _online_state == "join":
+		_refresh_lobby_list()
+
+func _refresh_lobby_list() -> void:
+	var list := _online_content.get_node_or_null("LobbyPlayerList") as VBoxContainer
+	if not list:
+		return
+	for child in list.get_children():
+		child.queue_free()
+	for entry in NetworkManager.lobby_players:
+		var lbl := Label.new()
+		lbl.text = "  •  " + entry.get("name", "?")
+		TWUIStyle.style_label(lbl, false)
+		list.add_child(lbl)
+
+func _on_start_online_game_pressed() -> void:
+	# Build session data from lobby, write it for the host, broadcast scene change.
+	var player_names: Array[String] = []
+	var players_info: Array = []
+	for entry in NetworkManager.lobby_players:
+		var pname: String = entry.get("name", "Player")
+		player_names.append(pname)
+		players_info.append({"name": pname, "is_bot": false})
+
+	var world_name := "OnlineGame"
+	var save_path  := SAVES_DIR + world_name + ".json"
+	var session_data_online := {
+		"world_name":   world_name,
+		"players_info": players_info,
+		"players":      player_names,
+	}
+	var f := FileAccess.open(save_path, FileAccess.WRITE)
+	if f:
+		f.store_string(JSON.stringify(session_data_online, "\t"))
+		f.close()
+	GameState.last_save_path = save_path
+
+	# Tell all peers to load the map (host will init state and broadcast).
+	NetworkManager.broadcast_scene_change("res://map_scene.tscn")
+
+func _on_join_pressed(name_input: LineEdit) -> void:
+	var player_name := name_input.text.strip_edges()
+	if player_name.is_empty():
+		player_name = "Commander"
+	_build_join_ui(player_name)
+
+func _build_join_ui(player_name: String) -> void:
+	_clear_online_content()
+	_online_state = "join"
+
+	var ip_lbl := Label.new()
+	ip_lbl.text = tr("ROOM CODE")
+	TWUIStyle.style_label_muted(ip_lbl)
+	_online_content.add_child(ip_lbl)
+
+	var ip_input := LineEdit.new()
+	ip_input.name = "IPInput"
+	ip_input.placeholder_text = "ABC123"
+	ip_input.max_length = 6
+	TWUIStyle.style_line_edit(ip_input)
+	_online_content.add_child(ip_input)
+
+	var status_lbl := Label.new()
+	status_lbl.name = "JoinStatusLabel"
+	status_lbl.text = ""
+	TWUIStyle.style_label_muted(status_lbl)
+	status_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD
+	_online_content.add_child(status_lbl)
+
+	var player_list := VBoxContainer.new()
+	player_list.name = "LobbyPlayerList"
+	player_list.add_theme_constant_override("separation", 4)
+	_online_content.add_child(player_list)
+
+	var spacer := Control.new()
+	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_online_content.add_child(spacer)
+
+	var connect_btn := Button.new()
+	connect_btn.name = "ConnectButton"
+	connect_btn.text = tr("CONNECT")
+	connect_btn.custom_minimum_size.y = 50
+	TWUIStyle.style_button_accent(connect_btn)
+	connect_btn.pressed.connect(
+		_on_connect_pressed.bind(ip_input, player_name, status_lbl, connect_btn))
+	_online_content.add_child(connect_btn)
+
+func _on_connect_pressed(ip_input: LineEdit, player_name: String,
+		status_lbl: Label, connect_btn: Button) -> void:
+	var ip := ip_input.text.strip_edges().to_upper()
+	if ip.is_empty():
+		status_lbl.text = tr("Please enter the room code.")
+		return
+	connect_btn.disabled = true
+	status_lbl.text = tr("Connecting...")
+
+	NetworkManager.connection_failed.connect(
+		func(reason): _on_join_failed(reason, status_lbl, connect_btn), CONNECT_ONE_SHOT)
+	if not NetworkManager.lobby_changed.is_connected(_on_lobby_changed):
+		NetworkManager.lobby_changed.connect(_on_lobby_changed)
+
+	NetworkManager.join_game(ip, player_name)
+
+func _on_join_failed(reason: String, status_lbl: Label, connect_btn: Button) -> void:
+	status_lbl.text = reason
+	connect_btn.disabled = false
+
+func _show_connecting_status(msg: String) -> void:
+	_clear_online_content()
+	var lbl := Label.new()
+	lbl.text = msg
+	TWUIStyle.style_label_muted(lbl)
+	_online_content.add_child(lbl)
+
+func _show_online_error(msg: String) -> void:
+	var lbl := _online_content.get_node_or_null("ErrorLabel") as Label
+	if not lbl:
+		lbl = Label.new()
+		lbl.name = "ErrorLabel"
+		lbl.add_theme_color_override("font_color", Color(1.0, 0.3, 0.3))
+		TWUIStyle.style_label(lbl, false)
+		_online_content.add_child(lbl)
+	lbl.text = msg
 
 
 func _on_new_session_back_pressed() -> void:
@@ -512,6 +750,7 @@ func _update_add_player_button_state() -> void:
 
 
 func _on_new_online_session_back_pressed() -> void:
+	NetworkManager.disconnect_game()
 	_show_page(new_session_page)
 
 

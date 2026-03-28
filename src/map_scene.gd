@@ -23,8 +23,13 @@ var _toast_label: Label
 var _is_bot_acting: bool = false
 
 func _ready():
-	_is_bot_acting = false # Reset on scene load/return
+	_is_bot_acting = false
 	_load_game_data()
+
+	if NetworkManager.is_online:
+		NetworkManager.state_applied.connect(_on_network_state_applied)
+		NetworkManager.peer_disconnected_in_game.connect(_on_peer_disconnected_in_game)
+
 	_load_or_init_session()
 
 	_setup_map_background()
@@ -175,7 +180,32 @@ func _load_game_data():
 	else:
 		print("game_data.json not found!")
 
+func _on_network_state_applied() -> void:
+	# Refresh local mirrors whenever the host pushes a new state.
+	players         = GameState.players
+	province_owners = GameState.province_owners
+	turn_index      = GameState.current_turn
+	game_phase      = GameState.game_phase
+	_update_ui()
+	_update_colors()
+
+
+func _on_peer_disconnected_in_game() -> void:
+	_show_toast(tr("A player has disconnected!"))
+	await get_tree().create_timer(2.5).timeout
+	NetworkManager.disconnect_game()
+	get_tree().change_scene_to_file("res://main_menu.tscn")
+
+
 func _load_or_init_session():
+	# Online non-host: state arrives via network; skip file loading.
+	if NetworkManager.is_online and not NetworkManager.is_host:
+		if GameState.players.size() > 0:
+			_sync_from_game_state()
+		else:
+			NetworkManager.state_applied.connect(_sync_from_game_state, CONNECT_ONE_SHOT)
+		return
+
 	var player_names = ["Player1", "Player2"]
 	var players_info = [] # Array of {name, is_bot}
 	var save_path = GameState.last_save_path
@@ -260,8 +290,25 @@ func _init_new_game_state(player_names: Array, players_info: Array = []):
 	GameState.province_owners = province_owners
 	GameState.current_turn = turn_index
 	GameState.game_phase = game_phase
-	
+
 	_save_session()
+	# Broadcast initial state to all online clients once _ready() finishes.
+	if NetworkManager.is_online and NetworkManager.is_host:
+		call_deferred("_broadcast_initial_online_state")
+
+
+func _broadcast_initial_online_state() -> void:
+	NetworkManager.net_sync(GameState.serialize())
+
+
+func _sync_from_game_state() -> void:
+	players         = GameState.players
+	province_owners = GameState.province_owners
+	turn_index      = GameState.current_turn
+	game_phase      = GameState.game_phase
+	_update_ui()
+	_update_colors()
+
 
 func _restore_game_state(state: Dictionary):
 	print("!!! [DEBUG CRITICAL] RESTORE GAME STATE CALLED !!!")
@@ -349,10 +396,12 @@ func _update_ui():
 					bbcode += "[color=#888888][s]%s[/s][/color] [font_size=16][i](%s)[/i][/font_size]\n\n" % [pp["name"], tr("ELIMINATED")]
 			all_players_army_label.text = bbcode
 		
-		# Trigger Bot Turn if applicable
+		# Trigger Bot Turn if applicable.
+		# In online mode, only the host runs bot logic.
 		if p.get("is_bot", false) and not _is_bot_acting:
-			print("!!! [DEBUG UI] BOT TURN DETECTED - TRIGGERING BOT BRAIN !!!")
-			_run_bot_turn()
+			if not NetworkManager.is_online or NetworkManager.is_host:
+				print("!!! [DEBUG UI] BOT TURN DETECTED - TRIGGERING BOT BRAIN !!!")
+				_run_bot_turn()
 
 func _run_bot_turn():
 	print("!!! [BOT BRAIN] STARTING LOGIC FOR: ", players[turn_index].name, " (index ", turn_index, ") !!!")
@@ -415,10 +464,12 @@ func _execute_pick(province_name: String):
 		game_phase = "playing"
 		GameState.game_phase = game_phase
 		
-	_is_bot_acting = false # RESET BEFORE UI UPDATE
+	_is_bot_acting = false
 	_update_ui()
 	_update_colors()
 	_save_session()
+	if NetworkManager.is_online:
+		NetworkManager.net_sync(GameState.serialize())
 
 func _execute_attack(province_name: String):
 	var p_data = game_data.get(province_name, {})
@@ -553,6 +604,10 @@ func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int, a
 		if bot_flag or _is_bot_acting:
 			print("!!! [INPUT] BLOCKING CLICK - Not your turn commander! !!!")
 			return
+
+		# Online: only the active player may interact.
+		if NetworkManager.is_online and not NetworkManager.is_my_turn():
+			return
 			
 		var province_name = area.name
 		
@@ -575,6 +630,8 @@ func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int, a
 			_update_ui()
 			_update_colors()
 			_save_session()
+			if NetworkManager.is_online:
+				NetworkManager.net_sync(GameState.serialize())
 		elif game_phase == "playing":
 			if province_owners.get(province_name, -1) == turn_index: return
 			
@@ -643,13 +700,15 @@ func _instant_conquer(province_name: String, def_idx: int, city_val: int) -> voi
 
 	GameState.players = players
 	GameState.province_owners = province_owners
-	_is_bot_acting = false # Reset flag before turn change
+	_is_bot_acting = false
 	GameState.next_turn()
 	turn_index = GameState.current_turn
-		
+
 	_update_ui()
 	_update_colors()
 	_save_session()
+	if NetworkManager.is_online:
+		NetworkManager.net_sync(GameState.serialize())
 
 func _is_neighbor(province_name: String, player_idx: int) -> bool:
 	if int(province_owners.get(province_name, -1)) == player_idx: return false

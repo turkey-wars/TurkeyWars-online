@@ -471,12 +471,17 @@ func _end_battle(attacker_won: bool):
 
 	print("Battle Over. Attacker Won: ", attacker_won)
 
+	# In online mode only the host resolves; non-host clients wait for the
+	# host's _do_change_scene RPC to arrive and take them back to the map.
+	if NetworkManager.is_online and not NetworkManager.is_host:
+		_show_battle_result(attacker_won)
+		return
+
 	_show_battle_result(attacker_won)
-
-	# Small delay before changing scene
 	await get_tree().create_timer(4.0).timeout
-
 	GameState.resolve_battle(attacker_won)
+	# resolve_battle() calls NetworkManager.net_sync_and_change_scene in online mode,
+	# so the scene transition is handled there for all peers.
 
 
 func _show_battle_result(attacker_won: bool) -> void:
