@@ -1,5 +1,5 @@
 {
-  "source_svg": "turkey-wars\\assets\\map.svg",
+  "source_svg": "src\\assets\\map.svg",
   "target_fill": "#6f9c76",
   "area_count": 81,
   "areas": [

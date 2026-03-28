@@ -5,14 +5,15 @@ Each agent owns a specific domain, enforcing separation of concerns and quality.
 
 ## Technology Stack
 
-- **Engine**: [CHOOSE: Godot 4 / Unity / Unreal Engine 5]
-- **Language**: [CHOOSE: GDScript / C# / C++ / Blueprint]
+- **Engine**: Godot 4.6 (Forward Plus renderer)
+- **Language**: GDScript (statically typed where possible)
 - **Version Control**: Git with trunk-based development
-- **Build System**: [SPECIFY after choosing engine]
-- **Asset Pipeline**: [SPECIFY after choosing engine]
+- **Build System**: Godot export system (via Editor or `godot --headless --export-release`)
+- **Asset Pipeline**: Godot import system; map data via JSON in `src/assets/`
 
-> **Note**: Engine-specialist agents exist for Godot, Unity, and Unreal with
-> dedicated sub-specialists. Use the set matching your engine.
+> **Note**: Use Godot-specialist agents (`godot-specialist`, `godot-gdscript-specialist`,
+> `godot-shader-specialist`). See `docs/engine-reference/godot/VERSION.md` for
+> post-cutoff API changes (Godot 4.4–4.6 not in LLM training data).
 
 ## Project Structure
 
@@ -42,8 +43,8 @@ Every task follows: **Question -> Options -> Decision -> Draft -> Approval**
 
 See `docs/COLLABORATIVE-DESIGN-PRINCIPLE.md` for full protocol and examples.
 
-> **First session?** If the project has no engine configured and no game concept,
-> run `/start` to begin the guided onboarding flow.
+> **Source root**: `src/` is the Godot project root (`src/project.godot`).
+> All `.gd` and `.tscn` files live under `src/`. Open `src/project.godot` in the editor.
 
 ## Coding Standards
 

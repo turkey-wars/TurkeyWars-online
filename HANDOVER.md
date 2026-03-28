@@ -65,7 +65,7 @@ The project relies on external Python scripts to bypass repetitive manual editin
 ## Known Issues & Technical Debt
 - **Spelling:** The node name `DefenderBackine` in `battlefield.tscn` is misspelled but currently referenced in code; normalize with caution.
 - **2D vs 3D:** Legacy 3D units (`unit.gd`) and battle manager (`battle_manager.gd`) still exist but are superseded by the `zez.gd` / `unit_2d.gd` system.
-- **Hardcoded Paths:** Many root-level Python scripts have hardcoded paths to `turkey-wars/` files.
+- **Project Structure:** Source root is now `src/` (renamed from `turkey-wars/`). Root-level one-off Python patch scripts have been removed.
 
 ---
 

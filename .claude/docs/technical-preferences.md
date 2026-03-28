@@ -5,24 +5,24 @@
 
 ## Engine & Language
 
-- **Engine**: [TO BE CONFIGURED — run /setup-engine]
-- **Language**: [TO BE CONFIGURED]
-- **Rendering**: [TO BE CONFIGURED]
-- **Physics**: [TO BE CONFIGURED]
+- **Engine**: Godot 4.6
+- **Language**: GDScript (statically typed where possible)
+- **Rendering**: Forward Plus
+- **Physics**: Jolt (Godot 4.6 default)
 
 ## Naming Conventions
 
-- **Classes**: [TO BE CONFIGURED]
-- **Variables**: [TO BE CONFIGURED]
-- **Signals/Events**: [TO BE CONFIGURED]
-- **Files**: [TO BE CONFIGURED]
-- **Scenes/Prefabs**: [TO BE CONFIGURED]
-- **Constants**: [TO BE CONFIGURED]
+- **Classes**: PascalCase (via `class_name`)
+- **Variables**: snake_case (e.g. `attack_damage`, `current_state`)
+- **Signals/Events**: snake_case past-tense verbs (e.g. `player_died`)
+- **Files**: snake_case (e.g. `battle_manager.gd`, `map_scene.tscn`)
+- **Scenes**: snake_case matching their primary script (e.g. `unit_2d.tscn`)
+- **Constants/Enums**: ALL_CAPS for constants, PascalCase for enum types, ALL_CAPS members
 
 ## Performance Budgets
 
-- **Target Framerate**: [TO BE CONFIGURED]
-- **Frame Budget**: [TO BE CONFIGURED]
+- **Target Framerate**: 60 fps
+- **Frame Budget**: 16.6 ms
 - **Draw Calls**: [TO BE CONFIGURED]
 - **Memory Ceiling**: [TO BE CONFIGURED]
 
