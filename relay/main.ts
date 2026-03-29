@@ -1,5 +1,5 @@
 // TurkeyWars Online — WebSocket Relay Server
-// Deploy to Deno Deploy: https://dash.deno.com
+// Deploy to Render.com (Docker) or Deno Deploy
 //
 // Protocol:
 //   host → send: {"type":"host"}
@@ -29,7 +29,24 @@ function send(ws: WebSocket, msg: object): void {
   if (ws.readyState === WebSocket.OPEN) ws.send(JSON.stringify(msg));
 }
 
-Deno.serve((req: Request): Response => {
+function closeRoom(roomCode: string, room: Room, leavingPeerId: number): void {
+  room.peers.delete(leavingPeerId);
+
+  // Notify remaining peers
+  for (const [, pws] of room.peers) {
+    send(pws, { type: "peer_disconnected", peer_id: leavingPeerId });
+  }
+
+  // If host left or room is now empty, discard it
+  if (leavingPeerId === 1 || room.peers.size === 0) {
+    rooms.delete(roomCode);
+    console.log(`[relay] Room ${roomCode} destroyed. Active rooms: ${rooms.size}`);
+  }
+}
+
+const port = parseInt(Deno.env.get("PORT") ?? "8000");
+
+Deno.serve({ port }, (req: Request): Response => {
   // Health-check for browsers / uptime monitors
   if (req.headers.get("upgrade") !== "websocket") {
     return new Response(
@@ -41,6 +58,14 @@ Deno.serve((req: Request): Response => {
   const { socket: ws, response } = Deno.upgradeWebSocket(req);
   let roomCode = "";
   let peerId = 0;
+
+  const cleanup = () => {
+    if (!roomCode) return;
+    const room = rooms.get(roomCode);
+    if (!room) return;
+    closeRoom(roomCode, room, peerId);
+    roomCode = ""; // prevent double-cleanup
+  };
 
   ws.onmessage = (e: MessageEvent) => {
     let msg: Record<string, unknown>;
@@ -66,6 +91,7 @@ Deno.serve((req: Request): Response => {
       roomCode = code;
       peerId = 1;
 
+      console.log(`[relay] Room ${code} created. Active rooms: ${rooms.size}`);
       send(ws, { type: "room_created", room: code, peer_id: 1 });
       return;
     }
@@ -99,6 +125,7 @@ Deno.serve((req: Request): Response => {
       for (const [pid, pws] of room.peers) {
         if (pid !== newId) send(pws, { type: "peer_connected", peer_id: newId });
       }
+      console.log(`[relay] Peer ${newId} joined room ${code}. Peers: ${room.peers.size}`);
       return;
     }
 
@@ -124,23 +151,10 @@ Deno.serve((req: Request): Response => {
     }
   };
 
-  ws.onclose = () => {
-    if (!roomCode) return;
-    const room = rooms.get(roomCode);
-    if (!room) return;
-
-    room.peers.delete(peerId);
-
-    // Notify remaining peers
-    for (const [, pws] of room.peers) {
-      send(pws, { type: "peer_disconnected", peer_id: peerId });
-    }
-
-    // If host left or room is now empty, discard it
-    if (peerId === 1 || room.peers.size === 0) {
-      rooms.delete(roomCode);
-    }
-  };
+  ws.onclose = cleanup;
+  ws.onerror = cleanup; // onerror is always followed by onclose, but guard anyway
 
   return response;
 });
+
+console.log(`[relay] TurkeyWars relay listening on port ${port}`);
