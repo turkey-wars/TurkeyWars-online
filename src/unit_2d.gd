@@ -36,6 +36,10 @@ static var sfx_range = []
 static var sfx_tank = []
 static var sfx_rocket = []
 
+# Separate RNG for cosmetic effects (audio, pitch) so they don't disturb
+# the seeded global RNG used for gameplay (positions, target timers).
+static var cosmetic_rng := RandomNumberGenerator.new()
+
 var audio_player: AudioStreamPlayer3D
 
 func _ready():
@@ -161,7 +165,7 @@ func _physics_process(delta: float):
 		
 	target_update_timer -= delta
 	if target_update_timer <= 0:
-		target_update_timer = randf_range(0.1, 0.15) # Stagger updates across units
+		target_update_timer = 0.1 # Fixed interval — keeps global RNG clean for spawn seed
 		target = _get_closest_enemy()
 
 	if not target:
@@ -301,7 +305,7 @@ func _play_attack_sfx():
 		elif unit_class == "rocket_launcher": streams = sfx_rocket
 		
 		if streams.size() > 0:
-				var stream = streams[randi() % streams.size()]
+				var stream = streams[cosmetic_rng.randi() % streams.size()]
 				audio_player.stream = stream
-				audio_player.pitch_scale = randf_range(0.85, 1.15)
+				audio_player.pitch_scale = cosmetic_rng.randf_range(0.85, 1.15)
 				audio_player.play()

@@ -51,6 +51,9 @@ func _ready():
 	# Wait a tiny bit just to let grass/scene load
 	await get_tree().create_timer(0.5).timeout
 
+	# Apply shared seed so unit positions and timers are identical on all clients
+	seed(GameState.attack_data.battle_seed)
+
 	# Spawn Attackers (Left Team)
 	for i in range(attacker_frontline_warriors):
 		spawn_unit(0, false, warrior_scene)
@@ -133,12 +136,17 @@ var initial_spawn_done = false
 func _end_battle(attacker_won: bool):
 	if battle_ended_flag: return
 	battle_ended_flag = true
-	
+
 	print("Battle Over. Attacker Won: ", attacker_won)
-	
+
 	# Small delay before changing scene
 	await get_tree().create_timer(3.0).timeout
-	
+
+	# Online: only the host resolves and broadcasts the result.
+	# Clients wait — host's net_sync_and_change_scene will trigger their scene change.
+	if NetworkManager.is_online and not NetworkManager.is_host:
+		return
+
 	GameState.resolve_battle(attacker_won)
 
 func spawn_unit(team: int, is_backline: bool, scene_to_spawn: PackedScene):

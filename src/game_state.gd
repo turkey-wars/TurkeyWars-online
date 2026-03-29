@@ -24,7 +24,8 @@ var attack_data = {
 	"buffed_unit": "",
 	"nerfed_unit": "",
 	"is_capital": false,
-	"city_value": 0
+	"city_value": 0,
+	"battle_seed": 0
 }
 
 const UNIT_COSTS = {
@@ -67,6 +68,7 @@ func serialize() -> Dictionary:
 			"nerfed_unit":    attack_data.nerfed_unit,
 			"is_capital":     attack_data.is_capital,
 			"city_value":     attack_data.city_value,
+			"battle_seed":    attack_data.battle_seed,
 		},
 	}
 
@@ -103,6 +105,7 @@ func apply_state(data: Dictionary) -> void:
 		attack_data.nerfed_unit   = ad.get("nerfed_unit", "")
 		attack_data.is_capital    = ad.get("is_capital", false)
 		attack_data.city_value    = ad.get("city_value", 0)
+		attack_data.battle_seed   = ad.get("battle_seed", 0)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -120,12 +123,14 @@ func start_battle(attacker, defender, prov, city_val):
 		var cap_name = capitals.get(defender, capitals.get(str(defender), ""))
 		attack_data.is_capital = (cap_name == prov)
 
-	# Assign buff/nerf here so it's in the state before any scene change
+	# Assign buff/nerf and battle seed here so both are in the state before any scene change
 	if attack_data.buffed_unit == "":
 		var units := ["warrior", "ranger", "rocket_launcher", "wizard"]
 		units.shuffle()
 		attack_data.buffed_unit = units[0]
 		attack_data.nerfed_unit = units[1]
+
+	attack_data.battle_seed = randi()
 
 	if NetworkManager.is_online:
 		NetworkManager.net_sync_and_change_scene(serialize(), "res://troop_selector.tscn")
@@ -205,13 +210,13 @@ func resolve_battle(attacker_won: bool):
 
 func next_turn():
 	var prev_turn = current_turn
-	current_turn = (current_turn + 1) % players.size()
-	
+	current_turn = (int(current_turn) + 1) % players.size()
+
 	if game_phase == "playing":
 		var attempts = 0
 		while not _is_player_alive(current_turn) and attempts < players.size():
 			print("[DEBUG GameState] Skipping dead player ", current_turn)
-			current_turn = (current_turn + 1) % players.size()
+			current_turn = (int(current_turn) + 1) % players.size()
 			attempts += 1
 	
 	print("[DEBUG GameState] Turn changed from ", prev_turn, " to ", current_turn)
