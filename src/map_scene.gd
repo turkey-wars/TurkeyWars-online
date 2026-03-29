@@ -92,21 +92,20 @@ func _setup_map_background() -> void:
 
 func _setup_camera() -> void:
 	var cam := Camera2D.new()
-	cam.position = Vector2(600.0, 220.0)
+	cam.position = Vector2(630.0, 211.0)
 	add_child(cam)
 	cam.make_current()
 
-	var base_width = 1920.0
-	var base_height = 1080.0
-	var current_width = get_viewport_rect().size.x
-	var current_height = get_viewport_rect().size.y
+	var base_width := 1920.0
+	var base_height := 1080.0
+	var current_width := get_viewport_rect().size.x
+	var current_height := get_viewport_rect().size.y
 
-	var zoom_factor_x = base_width / current_width
-	var zoom_factor_y = base_height / current_height
-	
-	# Use the larger zoom factor to ensure content fits within the smaller dimension
-	# and then adjust based on the original 1.5 zoom.
-	cam.zoom = Vector2(max(zoom_factor_x, zoom_factor_y) * 1.5, max(zoom_factor_x, zoom_factor_y) * 1.5)
+	# Scale the original zoom (1.5 at 1920x1080) proportionally to viewport size.
+	# Use min so neither dimension gets cropped.
+	var zoom_factor_x := current_width / base_width
+	var zoom_factor_y := current_height / base_height
+	cam.zoom = Vector2.ONE * (min(zoom_factor_x, zoom_factor_y) * 1.5)
 
 
 func _setup_map_hud() -> void:

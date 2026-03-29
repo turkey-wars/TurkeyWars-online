@@ -13,7 +13,7 @@ extends Node
 # ─────────────────────────────────────────────────────────────────────────────
 
 ## URL of the deployed Deno relay.  Update this after deploying relay/main.ts.
-const RELAY_URL: String     = "wss://YOUR_RELAY_NAME.deno.dev"
+const RELAY_URL: String     = "wss://turkeywars.turkey-wars.deno.net"
 const DEFAULT_PORT: int     = 7777   # unused; kept so call-sites don't break
 const MAX_PEERS: int        = 4
 
@@ -167,7 +167,7 @@ func _cleanup() -> void:
 
 
 func _on_unexpected_close() -> void:
-	var was_in_game := (GameState.game_phase == "playing")
+	var was_in_game: bool = (GameState.game_phase == "playing")
 	_cleanup()
 	if was_in_game:
 		peer_disconnected_in_game.emit()
