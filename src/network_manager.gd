@@ -13,7 +13,7 @@ extends Node
 # ─────────────────────────────────────────────────────────────────────────────
 
 ## URL of the deployed Deno relay.  Update this after deploying relay/main.ts.
-const RELAY_URL: String     = "wss://turkeywars.turkey-wars.deno.net"
+const RELAY_URL: String     = "wss://turkeywars-relay.onrender.com"
 const DEFAULT_PORT: int     = 7777   # unused; kept so call-sites don't break
 const MAX_PEERS: int        = 4
 
